@@ -1,9 +1,12 @@
+import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.mouse.Mouse;
 import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
 import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
 import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+
+import static org.academiadecodigo.simplegraphics.graphics.Color.CYAN;
 
 public class Test implements MouseHandler {
 
@@ -36,7 +39,10 @@ public class Test implements MouseHandler {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-
+        Rectangle rec2 = new Rectangle(mouseEvent.getX(),mouseEvent.getY(),50,50);
+        rec2.setColor(CYAN);
+        rec2.fill();
+        return;
     }
 }
 
