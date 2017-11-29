@@ -9,11 +9,11 @@ public class GameObjects {
     private int y;
     private Shape shape;
     private GameObjectTypes type;
-    private int speedFactor;
 
     public GameObjects(GameObjectTypes type) {
         this.type = type;
         this.shape = new Shape(type.getPath());
+        this.shape.setSpeedFactor(this.type.getSpeedFactor());
     }
 
     public void hit() {
