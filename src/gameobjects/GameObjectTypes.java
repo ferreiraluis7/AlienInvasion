@@ -1,8 +1,8 @@
 package gameobjects;
 
 public enum GameObjectTypes {
-    ALIEN1("path", 1),
-    ALIEN2("path", 2),
+    BASICALIEN("resources/images/aliens/basicAlien.png", 1),
+    WARRIORALIEN("resources/images/aliens/warriorAlien.png", 2),
     AlIEN3("path", 3),
     HOSTAGE1("path", 1),
     HOSTAGE2("path", 1),

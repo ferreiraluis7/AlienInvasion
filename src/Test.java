@@ -1,49 +1,25 @@
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.graphics.*;
+import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.mouse.Mouse;
 import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
 import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
 import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.simplegraphics.test.Tester;
 
 import static org.academiadecodigo.simplegraphics.graphics.Color.CYAN;
 
-public class Test implements MouseHandler {
+public class Test {
+
+    public static void main(String[] args) throws InterruptedException {
 
 
-    public static void main(String[] args) {
+        Picture img = new Picture(0,0,"resources/images/game/FullBackground.png");
 
-
-        Rectangle rec = new Rectangle(0,0,800,800);
-        rec.fill();
-
-        Test t = new Test();
-    }
-
-    public void test() {
-        Mouse m = new Mouse(this);
-        m.addEventListener(MouseEventType.MOUSE_CLICKED);
-        m.addEventListener(MouseEventType.MOUSE_MOVED);
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
-        if(mouseEvent.getX() == 25 || mouseEvent.getY() == 48 || mouseEvent.getX() == 775 || mouseEvent.getY() == 775) {
-            Picture sight = new Picture(mouseEvent.getX(),mouseEvent.getY(),"resources/images/game/cursor.png");
-            sight.draw();
-            return;
-        }
-
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-        Rectangle rec2 = new Rectangle(mouseEvent.getX(),mouseEvent.getY(),50,50);
-        rec2.setColor(CYAN);
-        rec2.fill();
-        return;
+        img.draw();
+        Player cenas = new Player();
     }
 }
-
 

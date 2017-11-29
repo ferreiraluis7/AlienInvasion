@@ -18,6 +18,7 @@ public class GameObjects {
 
     public void hit() {
         isDead = true;
+        shape.hide();
     }
 
     public boolean isDead() {
