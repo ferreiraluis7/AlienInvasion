@@ -11,7 +11,7 @@ public class Shape implements Representables{
 
 
     public Shape(String path) {
-        this.picture = new Picture(x,y,path);
+       this.picture = new Picture(x,y,path);
     }
 
     @Override
