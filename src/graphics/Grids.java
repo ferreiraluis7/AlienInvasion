@@ -3,8 +3,8 @@ package graphics;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public enum Grids {
-    INTRO("resources/images/game/FullBackground.png"),
-    MENU("path"),
+    INITIAL("resources/images/game/FullBackground.png"),
+    INTRO("path"),
     GAMESCREEN("path"),
     CREDITS("path");
         private String path;
@@ -19,12 +19,12 @@ public enum Grids {
     public static Picture generateGrid(Grids grid){
 
         switch (grid){
-            case INTRO:
-                System.out.println(INTRO.path);
-                return new Picture(0,0, INTRO.path);
+            case INITIAL:
+                System.out.println(INITIAL.path);
+                return new Picture(0,0,INITIAL.path);
 
-            case MENU:
-                return new Picture(0,0,MENU.path);
+            case INTRO:
+                return new Picture(0,0,INTRO.path);
 
             case GAMESCREEN:
                 return new Picture(0,0,GAMESCREEN.path);
