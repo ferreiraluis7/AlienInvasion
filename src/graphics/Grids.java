@@ -3,7 +3,7 @@ package graphics;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public enum Grids {
-    INITIAL("/home/c0d3x/workspace/AlienInvasion/resources/images/game/FullBackground.png"),
+    INITIAL("resources/images/game/FullBackground.png"),
     INTRO("path"),
     GAMESCREEN("path"),
     CREDITS("path");
@@ -16,20 +16,20 @@ public enum Grids {
 
     }
 
-    public static Picture generateGrid(String gridname){
+    public static Picture generateGrid(Grids grid){
 
-        switch (gridname){
-            case "initial":
+        switch (grid){
+            case INITIAL:
                 System.out.println(INITIAL.path);
                 return new Picture(0,0,INITIAL.path);
 
-            case "intro":
+            case INTRO:
                 return new Picture(0,0,INTRO.path);
 
-            case "gamescreen":
+            case GAMESCREEN:
                 return new Picture(0,0,GAMESCREEN.path);
 
-            case "credits":
+            case CREDITS:
                 return new Picture(0,0,CREDITS.path);
 
             default:

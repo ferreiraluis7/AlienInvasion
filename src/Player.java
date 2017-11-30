@@ -33,13 +33,9 @@ public class Player implements MouseHandler {
         }
     }
 
-
-
-
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         //shoot(target);
-
     }
 
     @Override
@@ -47,17 +43,15 @@ public class Player implements MouseHandler {
         sightX = (int) mouseEvent.getX();
         sightY = (int) mouseEvent.getY();
 
-        if((mouseEvent.getX() < 25 || mouseEvent.getX() > 775) && (mouseEvent.getY() < 48 || mouseEvent.getY() > 600)){
-
-        } else if (mouseEvent.getX() < 25 || mouseEvent.getX() > 775) {
-            sightCross.translate(0,mouseEvent.getY() - 50 - sightCross.getY());
+        if((mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > 775) && (mouseEvent.getY() < (sightCross.getHeight()/2) + 23 || mouseEvent.getY() > 600)){ //canvas bar has 23 pixels
+            sightCross.translate(0,0);
+        } else if (mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > 775) {
+            sightCross.translate(0,mouseEvent.getY() - sightCross.getHeight() - sightCross.getY());
         } else if (mouseEvent.getY() < 48 || mouseEvent.getY() > 600) {
-            sightCross.translate(mouseEvent.getX() - 25 - sightCross.getX(), 0);
+            sightCross.translate(mouseEvent.getX() - sightCross.getWidth()/2  - sightCross.getX(), 0);
         } else{
-            sightCross.translate(mouseEvent.getX() - 25 - sightCross.getX(), mouseEvent.getY() - 50 - sightCross.getY());
-
+            sightCross.translate(mouseEvent.getX() - sightCross.getWidth()/2  - sightCross.getX(), mouseEvent.getY() - sightCross.getHeight() - sightCross.getY());
         }
     }
-
 }
 

@@ -17,7 +17,7 @@ public class Test {
     public static void main(String[] args) throws InterruptedException {
 
 
-        Picture img = Grids.generateGrid("initial");  // initial --> initial screen
+        Picture img = Grids.generateGrid(Grids.INITIAL);  // initial --> initial screen
 
         //intro
         //gamescreen
