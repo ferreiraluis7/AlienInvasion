@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"org.academiadecodigo.simplegraphics.graphics"},{"l":"org.academiadecodigo.simplegraphics.keyboard"},{"l":"org.academiadecodigo.simplegraphics.mouse"},{"l":"org.academiadecodigo.simplegraphics.pictures"},{"l":"org.academiadecodigo.simplegraphics.test"}]
