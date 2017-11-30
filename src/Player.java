@@ -22,6 +22,7 @@ public class Player implements MouseHandler {
         sightCross.draw();
         sight.addEventListener(MouseEventType.MOUSE_CLICKED);
         sight.addEventListener(MouseEventType.MOUSE_MOVED);
+
     }
 
 
@@ -54,7 +55,9 @@ public class Player implements MouseHandler {
             sightCross.translate(mouseEvent.getX() - 25 - sightCross.getX(), 0);
         } else{
             sightCross.translate(mouseEvent.getX() - 25 - sightCross.getX(), mouseEvent.getY() - 50 - sightCross.getY());
+
         }
     }
+
 }
 

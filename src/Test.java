@@ -1,3 +1,4 @@
+import graphics.Grids;
 import org.academiadecodigo.simplegraphics.graphics.*;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
@@ -16,7 +17,7 @@ public class Test {
     public static void main(String[] args) throws InterruptedException {
 
 
-        Picture img = new Picture(0,0,"resources/images/game/FullBackground.png");
+        Picture img = Grids.generateGrid("initial");
 
         img.draw();
         Player cenas = new Player();
