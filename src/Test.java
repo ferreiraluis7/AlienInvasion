@@ -9,6 +9,9 @@ public class Test {
         Grid grid = new Grid();
         grid.generate(GridTypes.INITIAL);// initial --> initial screen
         grid.getRepresentation().draw();
+        Game game = new Game();
+        game.generateMouse();
+        System.out.println(grid.getRepresentation().getWidth());
 
         //intro
         //gamescreen
