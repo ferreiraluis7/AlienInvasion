@@ -2,7 +2,7 @@ package gameobjects;
 
 import graphics.Shape;
 
-public class GameObjects {
+public abstract class GameObjects {
 
     private boolean isDead = false;
     private int x;

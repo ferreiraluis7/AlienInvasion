@@ -1,15 +1,6 @@
-import org.academiadecodigo.simplegraphics.graphics.*;
-import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
-import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
-import org.academiadecodigo.simplegraphics.mouse.Mouse;
-import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
-import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
-import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.simplegraphics.test.Tester;
-
-import static org.academiadecodigo.simplegraphics.graphics.Color.CYAN;
 
 public class Test {
 
