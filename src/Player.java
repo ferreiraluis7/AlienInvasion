@@ -22,6 +22,7 @@ public class Player implements MouseHandler {
         sightCross.draw();
         sight.addEventListener(MouseEventType.MOUSE_CLICKED);
         sight.addEventListener(MouseEventType.MOUSE_MOVED);
+
     }
 
 
