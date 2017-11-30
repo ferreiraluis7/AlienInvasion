@@ -49,7 +49,7 @@ public class Player implements MouseHandler {
             sightCross.translate(0,mouseEvent.getY() - sightCross.getHeight() - sightCross.getY());
         } else if (mouseEvent.getY() < 48 || mouseEvent.getY() > 600) {
             sightCross.translate(mouseEvent.getX() - sightCross.getWidth()/2  - sightCross.getX(), 0);
-        } else{
+        } else {
             sightCross.translate(mouseEvent.getX() - sightCross.getWidth()/2  - sightCross.getX(), mouseEvent.getY() - sightCross.getHeight() - sightCross.getY());
         }
     }

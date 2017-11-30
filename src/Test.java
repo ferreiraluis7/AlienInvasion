@@ -1,20 +1,20 @@
-import graphics.Grids;
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Text;
+import graphics.Grid;
+import graphics.GridTypes;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Test {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
-
-        Picture img = Grids.generateGrid(Grids.INITIAL);  // initial --> initial screen
+        Grid grid = new Grid();
+        grid.generate(GridTypes.INITIAL);// initial --> initial screen
+        grid.getRepresentation().draw();
 
         //intro
         //gamescreen
         //credits              <-- use this four keywords when creating the screens like the example above ;)
 
-        img.draw();
+
         Player cenas = new Player();
     }
 }
