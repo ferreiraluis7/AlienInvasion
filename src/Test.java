@@ -1,9 +1,5 @@
 import graphics.Grid;
 import graphics.GridTypes;
-import graphics.Grids;
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Text;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Test {
 
@@ -14,7 +10,7 @@ public class Test {
         grid.getRepresentation().draw();
         Game g1 = new Game();
         g1.start();
-
+        Sound.playMusic();
 
         //intro
         //gamescreen

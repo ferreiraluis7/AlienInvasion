@@ -27,6 +27,7 @@ public class Player implements MouseHandler {
 
 
     public void shoot(GameObjects target) {
+
         if(target.getX() == sightX && target.getY() == sightY) {
             target.hit();
             score +=5;
@@ -35,7 +36,7 @@ public class Player implements MouseHandler {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        //shoot(target);
+        Sound.playSound();
     }
 
     @Override

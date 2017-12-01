@@ -1,5 +1,6 @@
 import gameobjects.GameObjects;
 import graphics.GridTypes;
+import kuusisto.tinysound.TinySound;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Game {
@@ -7,6 +8,7 @@ public class Game {
     private Picture background;
 
     public void start(){
+        TinySound.init();
         Player player1 = new Player();
         GameObjects[] characterList = new GameObjects[numberOfcharacters];
 
