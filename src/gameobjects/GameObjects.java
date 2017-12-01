@@ -11,10 +11,12 @@ public abstract class GameObjects {
     private int speedfactor;
     private Positions currentPosition;
     private int currentAnim = 0;
+    private boolean isAlien;
 
-    public GameObjects(GameObjectTypes type) {
+    public GameObjects(GameObjectTypes type, boolean isAlien) {
         this.type = type;
         this.speedfactor = type.getSpeedFactor();
+        this.isAlien = isAlien;
     }
 
     public void hit() {
@@ -41,5 +43,12 @@ public abstract class GameObjects {
         return type;
     }
 
+    public Positions getCurrentPosition() {
+        return currentPosition;
+    }
+
+    public boolean isAlien() {
+        return isAlien;
+    }
 
 }

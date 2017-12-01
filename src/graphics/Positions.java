@@ -12,6 +12,7 @@ public enum Positions {
 
     private int xPoint;
     private int yPoint;
+    private boolean isOccupied = false;
 
     Positions(int x, int y) {
         this.xPoint = x;
@@ -32,5 +33,13 @@ public enum Positions {
 
     public void setyPoint(int yPoint) {
         this.yPoint = yPoint;
+    }
+
+    public boolean isOccupied() {
+        return isOccupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        isOccupied = occupied;
     }
 }

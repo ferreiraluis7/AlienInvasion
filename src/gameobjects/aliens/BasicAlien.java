@@ -6,7 +6,7 @@ import gameobjects.GameObjects;
 public class BasicAlien extends GameObjects {
 
     public BasicAlien() {
-        super(GameObjectTypes.BASICALIEN);
+        super(GameObjectTypes.BASICALIEN, true);
 
     }
 }
