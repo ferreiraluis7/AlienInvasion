@@ -2,8 +2,6 @@ import gameobjects.GameObjects;
 import gameobjects.hostages.Hostage1;
 import gameobjects.hostages.Hostage2;
 import gameobjects.hostages.Hostage3;
-import graphics.Grid;
-import graphics.GridTypes;
 import graphics.Positions;
 import kuusisto.tinysound.TinySound;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -16,7 +14,6 @@ import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
 import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class Game implements MouseHandler, KeyboardHandler {
