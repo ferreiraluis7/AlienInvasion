@@ -5,14 +5,14 @@ import gameobjects.aliens.WarriorAlien;
 
 public class AlienFactory {
 
-    public GameObjects generateAlien() {
-        int chanceAlienHostage = Randomizer.generate();
+    public static GameObjects generateAlien() {
+        int chanceAlienGenerator = Randomizer.generate();
 
-        if(chanceAlienHostage < 40) {
+        if(chanceAlienGenerator < 40) {
             return new BasicAlien();
         }
 
-        if(chanceAlienHostage >80) {
+        if(chanceAlienGenerator >80) {
             return new WarriorAlien();
         }
 
