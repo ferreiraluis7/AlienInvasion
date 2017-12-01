@@ -6,6 +6,6 @@ import gameobjects.GameObjects;
 public class WarriorAlien extends GameObjects {
 
     public WarriorAlien(){
-        super(GameObjectTypes.WARRIORALIEN);
+        super(GameObjectTypes.WARRIORALIEN, true);
     }
 }

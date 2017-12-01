@@ -10,8 +10,8 @@ public class Grid {
     public void generate(GridTypes grid){
 
         switch (grid){
-            case INITIAL:
-                this.representation = new Picture(0,0,GridTypes.INITIAL.getPath());
+            case MENU:
+                this.representation = new Picture(0,0,GridTypes.MENU.getPath());
                 this.type = grid;
                 break;
 
@@ -20,8 +20,8 @@ public class Grid {
                 this.type = grid;
                 break;
 
-            case GAMESCREEN:
-                this.representation = new Picture(0,0,GridTypes.GAMESCREEN.getPath());
+            case GAMESTAGE:
+                this.representation = new Picture(0,0,GridTypes.GAMESTAGE.getPath());
                 this.type = grid;
                 break;
 

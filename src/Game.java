@@ -4,10 +4,7 @@ import gameobjects.hostages.Hostage2;
 import gameobjects.hostages.Hostage3;
 import graphics.Grid;
 import graphics.GridTypes;
-import kuusisto.tinysound.Sound;
-import kuusisto.tinysound.TinySound;
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Text;
+import graphics.Positions;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -21,6 +18,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 import java.util.concurrent.TimeUnit;
 
 public class Game implements MouseHandler, KeyboardHandler {
+
     public static final int numberOfAliens = 27;
     public static final int numberOfHostages = 3;
     public static final int gameWidth = 800;
@@ -34,10 +32,7 @@ public class Game implements MouseHandler, KeyboardHandler {
     private int sightX;
     private int sightY;
     private boolean isInMenu = true;
-    private int timeCounter = 0;
-
-
-
+    private boolean gameEnded = false;
 
     public void init() {
         this.player = new Player();
@@ -48,39 +43,40 @@ public class Game implements MouseHandler, KeyboardHandler {
     }
 
     public void start() throws InterruptedException {
-        TinySound.init();
-        SoundPlayer.playMusic(2);
 
+        generateIntroStage();
 
+        generateMenuStage();
 
-        int asd = 1;
-        grid.generate(GridTypes.INITIAL);
+        generateGameStage();
+
+    }
+
+    private void generateIntroStage() throws InterruptedException {
+        grid.generate(GridTypes.INTRO);
         grid.getRepresentation().draw();
-        Text text = new Text(300 ,300,"Intro");
-        text.setColor(Color.BLUE);
-        text.draw();
         TimeUnit.SECONDS.sleep(3);
+    }
 
-
+    private void generateMenuStage() throws  InterruptedException {
         grid.getRepresentation().delete();
-        grid.generate(GridTypes.INITIAL);
+        grid.generate(GridTypes.MENU);
         grid.getRepresentation().draw();
 
         while (isInMenu){
             TimeUnit.MILLISECONDS.sleep(15);
         }
-
-        grid.getRepresentation().draw();
-        Text text2 = new Text(300 ,300,"MENU");
-        text2.setColor(Color.RED);
-        text2.draw();
-        generateMouse();
-
     }
 
+    private void generateGameStage(){
+        grid.getRepresentation().delete();
+        grid.generate(GridTypes.MENU);
+        grid.getRepresentation().draw();
 
+        generateMouse();
+    }
 
-    public void generateGameObjects(){
+    private void generateGameObjects(){
 
         for(int i = 0 ; i < objects.length; i++) {
             if(i == numberOfAliens) {
@@ -98,13 +94,39 @@ public class Game implements MouseHandler, KeyboardHandler {
         }
     }
 
-    public void setTimer(int time) {
-        while(timeCounter!= time) {
-            timeCounter++;
+    private void gameStage(){
+        int random;
+        while(!gameEnded){
+            for (int i = 0; i < Positions.values().length; i++) {
+                random = (int) (Math.random()*Positions.values().length);
+                if(objects[random].getCurrentPosition().isOccupied()){
+                    continue;
+                }
+                objects[random].summon();
+                objects[random].getCurrentPosition().setOccupied(true);
+            }
+            if(checkDeadAliens()) {
+                gameEnded = true;
+            }
+
         }
     }
 
-    public void generateMouse() {
+    private boolean checkDeadAliens() {
+        for (int i = 0; i < numberOfAliens ; i++) {
+            if (!objects[i].isDead()){
+                return true;
+            }
+
+            if (!objects[i].isDead() && i == numberOfAliens - 1){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void generateMouse() {
         this.sight = new Mouse(this);
         this.sightCross = new Picture(0,0, "resources/images/game/cursor.png");
         sightCross.draw();
@@ -112,7 +134,7 @@ public class Game implements MouseHandler, KeyboardHandler {
         sight.addEventListener(MouseEventType.MOUSE_MOVED);
     }
 
-    public void generateKeyboard() {
+    private void generateKeyboard() {
         this.keyboard = new Keyboard(this);
         KeyboardEvent event = new KeyboardEvent();
         event.setKey(KeyboardEvent.KEY_SPACE);
@@ -122,8 +144,7 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        SoundPlayer.playSound();
-
+        //shoot(target);
     }
 
     @Override
@@ -151,11 +172,10 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     @Override
     public void keyReleased(KeyboardEvent e) {
-        if(grid.getType()==GridTypes.INITIAL){
+        if(grid.getType()==GridTypes.MENU){
             grid.getRepresentation().delete();
-            grid.generate(GridTypes.INITIAL);
+            grid.generate(GridTypes.MENU);
             isInMenu = false;
-            keyboard = null;
         }
 
     }

@@ -3,11 +3,12 @@ package graphics;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public enum GridTypes {
-    INITIAL("resources/images/game/FullBackground.png"),
+    MENU("resources/images/game/FullBackground.png"),
     INTRO("path"),
-    GAMESCREEN("path"),
+    GAMESTAGE("resources/images/game/GameBackground.png"),
     CREDITS("path");
-        private String path;
+
+    private String path;
 
 
     GridTypes(String pathname) {
