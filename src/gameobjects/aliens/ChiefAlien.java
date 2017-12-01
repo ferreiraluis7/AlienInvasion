@@ -6,6 +6,6 @@ import gameobjects.GameObjects;
 public class ChiefAlien extends GameObjects {
 
     public ChiefAlien(){
-        super(GameObjectTypes.AlIEN3,true);
+        super(GameObjectTypes.CHIEFALIEN,true);
     }
 }

@@ -9,9 +9,11 @@ public abstract class GameObjects {
     private Picture shape;
     private GameObjectTypes type;
     private int speedfactor;
+    private int counter = 0;
     private Positions currentPosition;
     private int currentAnim = 0;
     private boolean isAlien;
+    private boolean isSummoned;
 
     public GameObjects(GameObjectTypes type, boolean isAlien) {
         this.type = type;
@@ -26,9 +28,76 @@ public abstract class GameObjects {
 
     public void summon(){
 
-        currentPosition = Positions.values()[ (int) (Math.random()*Positions.values().length)];
-        this.shape = new Picture(currentPosition.getxPoint(),currentPosition.getyPoint(), this.type.getPath() + "Alien3_anim10.png");
+        this.shape = new Picture(currentPosition.getxPoint(),currentPosition.getyPoint(), this.type.getPath() + "Anim10.png");
         shape.draw();
+
+        /*
+        if (!isSummoned && this.type == GameObjectTypes.BASICALIEN ){
+            isSummoned = true;
+
+            currentPosition = Positions.values()[ (int) (Math.random()*Positions.values().length)];
+            this.shape = new Picture(currentPosition.getxPoint(),currentPosition.getyPoint(), this.type.getPath() + "Anim0.png");
+            shape.draw();
+        }
+        else if(isSummoned && this.type == GameObjectTypes.BASICALIEN ){
+
+            if(currentAnim != 10){
+                currentAnim++;
+                this.shape.load(this.type.getPath() + "Anim" + currentAnim + ".png");
+
+            }else {
+                counter++;
+            }
+
+        }
+
+        if (!isSummoned && this.type == GameObjectTypes.WARRIORALIEN ){
+            currentPosition = Positions.values()[ (int) (Math.random()*Positions.values().length)];
+            this.shape = new Picture(currentPosition.getxPoint(),currentPosition.getyPoint(), this.type.getPath() + "Anim0.png");
+            shape.draw();
+        }
+        else if(isSummoned && this.type == GameObjectTypes.WARRIORALIEN ){
+            //anim
+        }
+
+        if (!isSummoned && this.type == GameObjectTypes.CHIEFALIEN){
+            currentPosition = Positions.values()[ (int) (Math.random()*Positions.values().length)];
+            this.shape = new Picture(currentPosition.getxPoint(),currentPosition.getyPoint(), this.type.getPath() + "Anim0.png");
+            shape.draw();
+        }
+        else if(isSummoned && this.type == GameObjectTypes.CHIEFALIEN){
+            //anim
+        }
+
+        if (!isSummoned && this.type == GameObjectTypes.HOSTAGE1){
+            currentPosition = Positions.values()[ (int) (Math.random()*Positions.values().length)];
+            this.shape = new Picture(currentPosition.getxPoint(),currentPosition.getyPoint(), this.type.getPath() + "Anim0.png");
+            shape.draw();
+        }
+        else if(isSummoned && this.type == GameObjectTypes.HOSTAGE1 ){
+            //anim
+        }
+
+        if (!isSummoned && this.type == GameObjectTypes.HOSTAGE2){
+            currentPosition = Positions.values()[ (int) (Math.random()*Positions.values().length)];
+            this.shape = new Picture(currentPosition.getxPoint(),currentPosition.getyPoint(), this.type.getPath() + "Anim0.png");
+            shape.draw();
+        }
+        else if(isSummoned && this.type == GameObjectTypes.HOSTAGE2 ){
+            //anim
+        }
+
+        if (!isSummoned && this.type == GameObjectTypes.HOSTAGE3){
+            currentPosition = Positions.values()[ (int) (Math.random()*Positions.values().length)];
+            this.shape = new Picture(currentPosition.getxPoint(),currentPosition.getyPoint(), this.type.getPath() + "Anim0.png");
+            shape.draw();
+        }
+        else if(isSummoned && this.type == GameObjectTypes.HOSTAGE3 ){
+            //anim
+        }
+
+        */
+
     }
 
     public boolean isDead() {
@@ -51,4 +120,7 @@ public abstract class GameObjects {
         return isAlien;
     }
 
+    public void setCurrentPosition(Positions position) {
+        this.currentPosition = position;
+    }
 }

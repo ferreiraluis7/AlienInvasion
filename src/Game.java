@@ -5,6 +5,7 @@ import gameobjects.hostages.Hostage3;
 import graphics.Grid;
 import graphics.GridTypes;
 import graphics.Positions;
+import kuusisto.tinysound.TinySound;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -15,6 +16,7 @@ import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
 import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class Game implements MouseHandler, KeyboardHandler {
@@ -35,6 +37,8 @@ public class Game implements MouseHandler, KeyboardHandler {
     private boolean gameEnded = false;
 
     public void init() {
+        TinySound.init();
+
         this.player = new Player();
         this.grid = new Grid();
         this.objects = new GameObjects[numberOfAliens + numberOfHostages];
@@ -50,9 +54,13 @@ public class Game implements MouseHandler, KeyboardHandler {
 
         generateGameStage();
 
+        gameStage();
+
     }
 
     private void generateIntroStage() throws InterruptedException {
+        SoundPlayer.playMusic(1);
+
         grid.generate(GridTypes.INTRO);
         grid.getRepresentation().draw();
         TimeUnit.SECONDS.sleep(3);
@@ -78,37 +86,54 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     private void generateGameObjects(){
 
-        for(int i = 0 ; i < objects.length; i++) {
-            if(i == numberOfAliens) {
-                objects[i] = new Hostage1();
+        int random;
+        int counter=0;
 
-            } else if(i == numberOfAliens + 1) {
-                objects[i] = new Hostage2();
+        for (int i = 0; i < numberOfHostages ; i++) {
+            counter++;
+            random = 0;
 
-            } else if (i == numberOfAliens +2){
-                objects[i] = new Hostage3();
+            while (objects[random] == null){
+                random = (int) (Math.random() * objects.length);
+            }
+
+            if(counter == 1){
+                objects[random] = new Hostage1();
+            } else if(counter == 2){
+
+                objects[random] = new Hostage2();
 
             } else {
-                objects[i] = AlienFactory.generateAlien();
+                objects[random] = new Hostage3();
             }
+        }
+
+        for(int i = 0 ; i < objects.length; i++) {
+            if(objects[i] != null){
+                continue;
+            }
+            objects[i] = AlienFactory.generateAlien();
         }
     }
 
-    private void gameStage(){
-        int random;
+    private void gameStage() throws InterruptedException{
+        int randomPosition;
+        randomPosition = (int) (Math.random() * objects.length);
+        int objectIndex=0;
+
         while(!gameEnded){
-            for (int i = 0; i < Positions.values().length; i++) {
-                random = (int) (Math.random()*Positions.values().length);
-                if(objects[random].getCurrentPosition().isOccupied()){
-                    continue;
-                }
-                objects[random].summon();
-                objects[random].getCurrentPosition().setOccupied(true);
-            }
-            if(checkDeadAliens()) {
-                gameEnded = true;
+            while (Positions.values()[randomPosition].isOccupied()){
+                randomPosition = (int) (Math.random() * objects.length);
             }
 
+            objects[objectIndex].setCurrentPosition(Positions.values()[randomPosition]);
+            objects[objectIndex].summon();
+            objectIndex++;
+            TimeUnit.MILLISECONDS.sleep(75);
+
+            if(checkDeadAliens() || checkDeadHostages()) {
+                gameEnded = true;
+            }
         }
     }
 
@@ -122,9 +147,26 @@ public class Game implements MouseHandler, KeyboardHandler {
                 return true;
             }
         }
+        return false;
+    }
+
+    private boolean checkDeadHostages(){
+
+        for (int i = numberOfAliens; i < objects.length; i++) {
+
+                if (!objects[i].isDead()){
+                    return true;
+                }
+
+                if (!objects[i].isDead() && i == objects.length - 1){
+                    return true;
+                }
+
+        }
 
         return false;
     }
+
 
     private void generateMouse() {
         this.sight = new Mouse(this);
@@ -144,6 +186,8 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
+        SoundPlayer.playSound();
+
         //shoot(target);
     }
 
