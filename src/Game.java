@@ -52,7 +52,7 @@ public class Game implements MouseHandler, KeyboardHandler {
     }
 
     public void generateIntroStage() throws InterruptedException {
-        SoundPlayer.playMusic(1);
+       // SoundPlayer.playMusic(1);
         grid.generate(GridTypes.INTRO);
         grid.getRepresentation().draw();
         TimeUnit.SECONDS.sleep(3);
@@ -88,23 +88,24 @@ public class Game implements MouseHandler, KeyboardHandler {
     }
 
     private void gameStage() throws InterruptedException{
-        int randomPosition;
-        randomPosition = 0;
-        int objectIndex=0;
+
 
         while(!gameEnded){
-            randomPosition = (int) (Math.random() * Positions.values().length);
-            while (Positions.values()[randomPosition].isOccupied()){
-                randomPosition = (int) (Math.random() * Positions.values().length);
-            }
-
-            objects[objectIndex].setCurrentPosition(Positions.values()[randomPosition]);
-            objects[objectIndex].summon();
-            objectIndex++;
-            TimeUnit.MILLISECONDS.sleep(75);
-
-            if(checkDeadAliens() || checkDeadHostages()) {
-                gameEnded = true;
+            for (int i = 0; i < objects.length; i++) {
+                if(objects[i].isDead()){
+                    continue;
+                }
+                for (int j = 0; j <Positions.values().length ; j++) {
+                    objects[i].setCurrentPosition(Positions.values()[j]);
+                    objects[i].summon();
+                    sightCross.draw();
+                    TimeUnit.MILLISECONDS.sleep(500);
+                    if(objects[i].isDead()){
+                        break;
+                    }
+                    objects[i].hide();
+                    objects[i].setCurrentPosition(null);
+                }
             }
         }
     }
@@ -158,9 +159,9 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        SoundPlayer.playSound();
+        //SoundPlayer.playSound();
+        if(sightX > )
 
-        //shoot(target);
     }
 
     @Override
@@ -168,7 +169,7 @@ public class Game implements MouseHandler, KeyboardHandler {
         this.sightX = (int) mouseEvent.getX();
         this.sightY = (int) mouseEvent.getY();
 
-        if((mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) && (mouseEvent.getY() < (sightCross.getHeight()/2) + 23 || mouseEvent.getY() > gameHeight)){ //canvas bar has 23 pixels
+      /*  if((mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) && (mouseEvent.getY() < (sightCross.getHeight()/2) + 23 || mouseEvent.getY() > gameHeight)){ //canvas bar has 23 pixels
             sightCross.translate(0,0);
         } else if (mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) {
             sightCross.translate(0,mouseEvent.getY() - sightCross.getHeight() - sightCross.getY());
@@ -176,8 +177,7 @@ public class Game implements MouseHandler, KeyboardHandler {
             sightCross.translate(mouseEvent.getX() - sightCross.getWidth()/2  - sightCross.getX(), 0);
         } else {
             sightCross.translate(mouseEvent.getX() - sightCross.getWidth()/2  - sightCross.getX(), mouseEvent.getY() - sightCross.getHeight() - sightCross.getY());
-        }
-
+        }*/
     }
 
     @Override

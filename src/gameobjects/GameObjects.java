@@ -100,6 +100,10 @@ public abstract class GameObjects {
 
     }
 
+    public void hide(){
+        this.shape.delete();
+    }
+
     public boolean isDead() {
         return isDead;
     }

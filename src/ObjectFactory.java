@@ -9,25 +9,25 @@ import gameobjects.hostages.Hostage3;
 public class ObjectFactory {
 
     public static GameObjects generateObject() {
-        int chanceAlienGenerator = Randomizer.generate();
+        int chanceObjectGenerator = Randomizer.generate();
 
-        if(chanceAlienGenerator <= 25) {
+        if(chanceObjectGenerator <= 25) {
             return new BasicAlien();
         }
 
-        if(chanceAlienGenerator <= 55) {
+        if(chanceObjectGenerator <= 55) {
             return new WarriorAlien();
         }
 
-        if(chanceAlienGenerator <= 70) {
+        if(chanceObjectGenerator <= 70) {
             return new ChiefAlien();
         }
 
-        if(chanceAlienGenerator <= 80) {
+        if(chanceObjectGenerator <= 80) {
             return new Hostage1();
         }
 
-        if(chanceAlienGenerator < 90) {
+        if(chanceObjectGenerator < 90) {
             return new Hostage2();
         }
         return new Hostage3();
