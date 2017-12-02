@@ -2,8 +2,8 @@ package gameobjects;
 
 public enum GameObjectTypes {
     BASICALIEN("resources/images/aliens/basicalien/", 1),
-    WARRIORALIEN("resources/images/aliens/basicalien/", 2),
-    CHIEFALIEN("resources/images/aliens/basicalien/", 3),
+    WARRIORALIEN("resources/images/aliens/warrioralien/", 2),
+    CHIEFALIEN("resources/images/aliens/chiefalien/", 3),
     HOSTAGE1("resources/images/aliens/basicalien/", 1),
     HOSTAGE2("resources/images/aliens/basicalien/", 1),
     HOSTAGE3("resources/images/aliens/basicalien/", 1);

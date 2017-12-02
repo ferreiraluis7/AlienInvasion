@@ -1,7 +1,7 @@
 public enum GridTypes {
-    INTRO("resources/images/game/IntroBackground.png"),
-    MENU("resources/images/game/MenuBackground.png"),
-    GAME("resources/images/game/GameBackground.png"),
+    INTRO("images/game/IntroBackground.png"),
+    MENU("images/game/MenuBackground.png"),
+    GAME("images/game/GameBackground.png"),
     CREDITS("path");
         private String path;
 

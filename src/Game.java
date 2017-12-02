@@ -1,6 +1,8 @@
 import gameobjects.GameObjects;
 import graphics.Positions;
 import kuusisto.tinysound.TinySound;
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -29,14 +31,16 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     private int sightY;
     private boolean isInMenu = true;
     private boolean gameEnded = false;
+    private MovieMak3r movieMak3r;
 
     public void init() {
-
+        TinySound.init();
         this.player = new Player();
         this.grid = new Grid();
         this.objects = new GameObjects[numberOfAliens + numberOfHostages];
         generateGameObjects();
         generateKeyboard();
+        movieMak3r = new MovieMak3r();
     }
 
     public void start() throws InterruptedException {
@@ -54,8 +58,10 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     public void generateIntroStage() throws InterruptedException {
         playMusic(chooseSound.INTRO);
         grid.generate(GridTypes.INTRO);
-        grid.getRepresentation().draw();
-        TimeUnit.SECONDS.sleep(3);
+       // grid.getRepresentation().draw();
+
+        movieMak3r.play("resources/images/Intro/", "Intro",92,0,100);
+
     }
 
     private void generateMenuStage() throws  InterruptedException {
@@ -78,6 +84,25 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         generateMouse();
     }
 
+    public void generateCredits(){
+        grid.getRepresentation().delete();
+        grid.generate(GridTypes.CREDITS);
+        grid.getRepresentation().draw();
+
+        showScore();
+
+
+    }
+
+    public void showScore(){
+        Text score = new Text(400,200,"--------- Score ------- \n"
+                +" Killed Aliens: " + this.player.getShotsOnTarget()+"\n"
+                + "Shots fired: " + this.player.getShootsFired());
+
+        score.setColor(Color.RED);
+        score.draw();
+    }
+
     public void generateGameObjects(){
 
         int random;
@@ -90,67 +115,94 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     }
 
     private void gameStage() throws InterruptedException{
-
-
+        int counter = 1;
         while(!gameEnded){
+            counter ++;
             for (int i = 0; i < objects.length; i++) {
-                if(objects[i].isDead()){
+                if (objects[i].isDead()) {
                     continue;
                 }
-                for (int j = 0; j <Positions.values().length ; j++) {
-                    objects[i].setCurrentPosition(Positions.values()[j]);
-                    objects[i].summon();
-                    sightCross.draw();
-                    playSound(chooseSound.ALIENAPPEAR);
-                    TimeUnit.MILLISECONDS.sleep(500);
-                    if(objects[i].isDead()){
-                        break;
-                    }
-                    objects[i].hide();
-                    objects[i].setCurrentPosition(null);
+                objects[i].summon();
+                TimeUnit.MILLISECONDS.sleep(800/counter);
+                objects[i].hide();
+                TimeUnit.MILLISECONDS.sleep(800/counter);
+
+                System.out.println(i);
+
+                if (checkDeadHostages() || checkDeadAliens()) {
+
+                    gameEnded = true;
                 }
             }
         }
+
+        System.out.println(player.getShotsOnTarget());
+        System.out.println(player.getShootsFired());
     }
 
     private boolean checkDeadAliens() {
-        for (int i = 0; i < numberOfAliens ; i++) {
-            if (!objects[i].isDead()){
-                return true;
+        boolean alienIsDead = false;
+        for (int i = 0; i < objects.length ; i++) {
+            if(!objects[i].isAlien()){
+                continue;
             }
 
-            if (!objects[i].isDead() && i == numberOfAliens - 1){
-                return true;
+            if(objects[i].isDead()) {
+                alienIsDead = true;
+            }
+
+            if (!objects[i].isDead()){
+                return alienIsDead;
             }
         }
-        return false;
+        return alienIsDead;
     }
 
     private boolean checkDeadHostages(){
+        boolean hostageIsDead = false;
 
-        for (int i = numberOfAliens; i < objects.length; i++) {
+        for (int i = 0; i < objects.length; i++) {
+            if(objects[i].isAlien()){
+                continue;
+            }
 
-                if (!objects[i].isDead()){
-                    return true;
-                }
+            if (objects[i].isDead()) {
+                hostageIsDead = true;
+            }
 
-                if (!objects[i].isDead() && i == objects.length - 1){
-                    return true;
-                }
-
+            if (!objects[i].isDead()) {
+                return hostageIsDead;
+            }
         }
-
-        return false;
+            return hostageIsDead;
     }
 
+    private void shotOnTarget(){
+        int objectOriginX;
+        int objectOriginY;
+
+        for (int i = 0; i < objects.length ; i++) {
+            if(objects[i].isDead()){
+                continue;
+            }
+            objectOriginX = objects[i].getCurrentPosition().getxPoint();
+            objectOriginY = objects[i].getCurrentPosition().getyPoint();
+
+            if(sightX >= objectOriginX && sightX <= objects[i].getShape().getMaxX()){
+                if(sightY >= objectOriginY && sightY <= objects[i].getShape().getMaxY()){
+                    objects[i].hit();
+                    player.shotOnTarget();
+                }
+            }
+        }
+    }
 
     private void generateMouse() {
         this.sight = new Mouse(this);
-        this.sightCross = new Picture(0,0, "resources/images/game/cursor.png");
-        sightCross.draw();
         sight.addEventListener(MouseEventType.MOUSE_CLICKED);
         sight.addEventListener(MouseEventType.MOUSE_MOVED);
     }
+
 
     private void generateKeyboard() {
         this.keyboard = new Keyboard(this);
@@ -160,10 +212,11 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         keyboard.addEventListener(event);
     }
 
+
+
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-        //SoundPlayer.playSound();
-        //if(sightX > )
+    public void mouseClicked(MouseEvent mouseEvent){
+
 
     }
 
@@ -171,6 +224,8 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     public void mouseMoved(MouseEvent mouseEvent) {
         this.sightX = (int) mouseEvent.getX();
         this.sightY = (int) mouseEvent.getY();
+
+        System.out.println("X: " +(int) mouseEvent.getX() + " Y: "+(int) mouseEvent.getX());
 
       /*  if((mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) && (mouseEvent.getY() < (sightCross.getHeight()/2) + 23 || mouseEvent.getY() > gameHeight)){ //canvas bar has 23 pixels
             sightCross.translate(0,0);
@@ -195,7 +250,14 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
             grid.getRepresentation().delete();
             grid.generate(GridTypes.MENU);
             isInMenu = false;
+        } else if(grid.getType()==GridTypes.GAME) {
+            player.shoot();
+            shotOnTarget();
+        } else if(grid.getType()==GridTypes.CREDITS) {
+
         }
+
+
 
     }
 

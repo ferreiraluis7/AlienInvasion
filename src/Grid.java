@@ -19,7 +19,7 @@ public class Grid {
                 break;
 
             case GAME:
-                this.representation = new Picture(0,0, GridTypes.GAME.getPath());
+                this.representation = new Picture(0,0 , GridTypes.GAME.getPath());
                 this.type = grid;
                 break;
 

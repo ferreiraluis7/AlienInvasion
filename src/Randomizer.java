@@ -1,6 +1,6 @@
 public class Randomizer {
 
-    public static int generate() {
-        return (int) (Math.random() * 101);
+    public static int generate(int minNum, int maxNum) {
+        return (int) (Math.random() * ((maxNum - minNum) + minNum));
     }
 }
