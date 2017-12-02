@@ -89,65 +89,106 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     private void gameStage() throws InterruptedException{
 
-
         while(!gameEnded){
             for (int i = 0; i < objects.length; i++) {
                 if(objects[i].isDead()){
                     continue;
                 }
-                for (int j = 0; j <Positions.values().length ; j++) {
+                objects[i].summon();
+                TimeUnit.MILLISECONDS.sleep(500);
+
+                for (int j = 1; j < Positions.values().length ; j++) {
+
+                    objects[i].move(Positions.values()[j]);
                     objects[i].setCurrentPosition(Positions.values()[j]);
-                    objects[i].summon();
-                    sightCross.draw();
+
                     TimeUnit.MILLISECONDS.sleep(500);
                     if(objects[i].isDead()){
+                        System.out.println("break");
                         break;
                     }
-                    objects[i].hide();
-                    objects[i].setCurrentPosition(null);
                 }
+
+                objects[i].hide();
+                objects[i].move(Positions.ORIGIN);
+                objects[i].setCurrentPosition(Positions.ORIGIN);
+
+
+                }
+            if(checkDeadHostages() || checkDeadAliens()){
+                gameEnded = true;
             }
+
         }
+
+        System.out.println(player.getShotsOnTarget());
+        System.out.println(player.getShootsFired());
     }
 
     private boolean checkDeadAliens() {
-        for (int i = 0; i < numberOfAliens ; i++) {
-            if (!objects[i].isDead()){
-                return true;
+        boolean alienIsDead = false;
+        for (int i = 0; i < objects.length ; i++) {
+            if(!objects[i].isAlien()){
+                continue;
             }
 
-            if (!objects[i].isDead() && i == numberOfAliens - 1){
-                return true;
+            if(objects[i].isDead()) {
+                alienIsDead = true;
+            }
+
+            if (!objects[i].isDead()){
+                return alienIsDead;
             }
         }
-        return false;
+        return alienIsDead;
     }
 
     private boolean checkDeadHostages(){
+        boolean hostageIsDead = false;
 
-        for (int i = numberOfAliens; i < objects.length; i++) {
+        for (int i = 0; i < objects.length; i++) {
+            if(objects[i].isAlien()){
+                continue;
+            }
 
-                if (!objects[i].isDead()){
-                    return true;
-                }
+            if (objects[i].isDead()) {
+                hostageIsDead = true;
+            }
 
-                if (!objects[i].isDead() && i == objects.length - 1){
-                    return true;
-                }
-
+            if (!objects[i].isDead()) {
+                return hostageIsDead;
+            }
         }
-
-        return false;
+            return hostageIsDead;
     }
 
+    private void shotOnTarget(){
+        int objectOriginX;
+        int objectOriginY;
+
+        for (int i = 0; i < objects.length ; i++) {
+            if(objects[i].isDead()){
+                continue;
+            }
+            objectOriginX = objects[i].getCurrentPosition().getxPoint();
+
+            objectOriginY = objects[i].getCurrentPosition().getyPoint();
+
+            if(sightX >= objectOriginX && sightX <= objects[i].getShape().getMaxX()){
+                if(sightY >= objectOriginY && sightY <= objects[i].getShape().getMaxY()){
+                    objects[i].hit();
+                    player.shotOnTarget();
+                }
+            }
+        }
+    }
 
     private void generateMouse() {
         this.sight = new Mouse(this);
-        this.sightCross = new Picture(0,0, "resources/images/game/cursor.png");
-        sightCross.draw();
         sight.addEventListener(MouseEventType.MOUSE_CLICKED);
         sight.addEventListener(MouseEventType.MOUSE_MOVED);
     }
+
 
     private void generateKeyboard() {
         this.keyboard = new Keyboard(this);
@@ -157,10 +198,11 @@ public class Game implements MouseHandler, KeyboardHandler {
         keyboard.addEventListener(event);
     }
 
+
+
     @Override
-    public void mouseClicked(MouseEvent mouseEvent) {
-        //SoundPlayer.playSound();
-        if(sightX > )
+    public void mouseClicked(MouseEvent mouseEvent){
+
 
     }
 
@@ -192,7 +234,12 @@ public class Game implements MouseHandler, KeyboardHandler {
             grid.getRepresentation().delete();
             grid.generate(GridTypes.MENU);
             isInMenu = false;
+        } else if(grid.getType()==GridTypes.GAME) {
+            player.shoot();
+            shotOnTarget();
         }
+
+
 
     }
 

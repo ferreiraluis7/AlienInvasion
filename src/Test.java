@@ -22,7 +22,7 @@ public class Test {
        try{
            g.start();
        } catch (InterruptedException e) {
-
+           System.out.println("Error");
        }
 
 

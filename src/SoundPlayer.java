@@ -11,11 +11,11 @@ public class SoundPlayer {
 
             case 1:
 
-                Music song = TinySound.loadMusic("resources/MusicAndSound/intro.wav");
+                Music song = TinySound.loadMusic("MusicAndSound/intro.wav");
                 song.play(true);
                 break;
             case 2:
-                Music song2 = TinySound.loadMusic("resources/MusicAndSound/throughspace.wav");
+                Music song2 = TinySound.loadMusic("MusicAndSound/throughspace.wav");
                 song2.play(true);
                 break;
 
@@ -31,7 +31,7 @@ public class SoundPlayer {
     }
     public static void playSound(){
 
-        Sound fire = TinySound.loadSound("resources/MusicAndSound/pistol.wav");
+        Sound fire = TinySound.loadSound("MusicAndSound/pistol.wav");
         fire.play();
 
 
