@@ -1,6 +1,8 @@
 import gameobjects.GameObjects;
 import graphics.Positions;
 import kuusisto.tinysound.TinySound;
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -58,7 +60,7 @@ public class Game implements MouseHandler, KeyboardHandler {
         grid.generate(GridTypes.INTRO);
        // grid.getRepresentation().draw();
 
-        movieMak3r.play("resources/images/Intro/", "Intro",92,100);
+        movieMak3r.play("resources/images/Intro/", "Intro",92,0,100);
 
     }
 
@@ -78,6 +80,25 @@ public class Game implements MouseHandler, KeyboardHandler {
         grid.getRepresentation().draw();
 
         generateMouse();
+    }
+
+    public void generateCredits(){
+        grid.getRepresentation().delete();
+        grid.generate(GridTypes.CREDITS);
+        grid.getRepresentation().draw();
+
+        showScore();
+
+
+    }
+
+    public void showScore(){
+        Text score = new Text(400,200,"--------- Score ------- \n"
+                +" Killed Aliens: " + this.player.getShotsOnTarget()+"\n"
+                + "Shots fired: " + this.player.getShootsFired());
+
+        score.setColor(Color.RED);
+        score.draw();
     }
 
     public void generateGameObjects(){
@@ -107,6 +128,7 @@ public class Game implements MouseHandler, KeyboardHandler {
                 System.out.println(i);
 
                 if (checkDeadHostages() || checkDeadAliens()) {
+
                     gameEnded = true;
                 }
             }
@@ -162,7 +184,6 @@ public class Game implements MouseHandler, KeyboardHandler {
                 continue;
             }
             objectOriginX = objects[i].getCurrentPosition().getxPoint();
-
             objectOriginY = objects[i].getCurrentPosition().getyPoint();
 
             if(sightX >= objectOriginX && sightX <= objects[i].getShape().getMaxX()){
@@ -201,6 +222,8 @@ public class Game implements MouseHandler, KeyboardHandler {
     public void mouseMoved(MouseEvent mouseEvent) {
         this.sightX = (int) mouseEvent.getX();
         this.sightY = (int) mouseEvent.getY();
+
+        System.out.println("X: " +(int) mouseEvent.getX() + " Y: "+(int) mouseEvent.getX());
 
       /*  if((mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) && (mouseEvent.getY() < (sightCross.getHeight()/2) + 23 || mouseEvent.getY() > gameHeight)){ //canvas bar has 23 pixels
             sightCross.translate(0,0);
