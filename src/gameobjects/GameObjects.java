@@ -13,14 +13,14 @@ public abstract class GameObjects {
     private Positions currentPosition;
     private int currentAnim = 0;
     private boolean isAlien;
-    private boolean isSummoned;
+    private boolean isSummoned = false;
 
     public GameObjects(GameObjectTypes type, boolean isAlien) {
         this.type = type;
         this.speedfactor = type.getSpeedFactor();
         this.isAlien = isAlien;
-        this.currentPosition = Positions.ORIGIN;
-        this.shape = new Picture(Positions.ORIGIN.getxPoint(), Positions.ORIGIN.getyPoint(),type.getPath() + "Anim10.png");
+        this.currentPosition = Positions.values()[(int) (Math.random() * ((Positions.values().length)))];
+        this.shape = new Picture(currentPosition.getxPoint(), currentPosition.getyPoint(),type.getPath() + "Anim10.png");
     }
 
     public void hit() {
@@ -29,7 +29,13 @@ public abstract class GameObjects {
     }
 
     public void summon(){
+        Positions nextPos;
+
         shape.draw();
+
+        nextPos = Positions.values()[(int) (Math.random() * ((Positions.values().length)))];
+        move(nextPos);
+        currentPosition = nextPos;
     }
 
     public void move(Positions nextPos){

@@ -88,37 +88,24 @@ public class Game implements MouseHandler, KeyboardHandler {
     }
 
     private void gameStage() throws InterruptedException{
-
+        int counter = 1;
         while(!gameEnded){
+            counter ++;
             for (int i = 0; i < objects.length; i++) {
-                if(objects[i].isDead()){
+                if (objects[i].isDead()) {
                     continue;
                 }
                 objects[i].summon();
-                TimeUnit.MILLISECONDS.sleep(500);
-
-                for (int j = 1; j < Positions.values().length ; j++) {
-
-                    objects[i].move(Positions.values()[j]);
-                    objects[i].setCurrentPosition(Positions.values()[j]);
-
-                    TimeUnit.MILLISECONDS.sleep(500);
-                    if(objects[i].isDead()){
-                        System.out.println("break");
-                        break;
-                    }
-                }
-
+                TimeUnit.MILLISECONDS.sleep(800/counter);
                 objects[i].hide();
-                objects[i].move(Positions.ORIGIN);
-                objects[i].setCurrentPosition(Positions.ORIGIN);
+                TimeUnit.MILLISECONDS.sleep(800/counter);
 
+                System.out.println(i);
 
+                if (checkDeadHostages() || checkDeadAliens()) {
+                    gameEnded = true;
                 }
-            if(checkDeadHostages() || checkDeadAliens()){
-                gameEnded = true;
             }
-
         }
 
         System.out.println(player.getShotsOnTarget());
@@ -237,6 +224,8 @@ public class Game implements MouseHandler, KeyboardHandler {
         } else if(grid.getType()==GridTypes.GAME) {
             player.shoot();
             shotOnTarget();
+        } else if(grid.getType()==GridTypes.CREDITS) {
+
         }
 
 

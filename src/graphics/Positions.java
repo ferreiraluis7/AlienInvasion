@@ -2,7 +2,6 @@ package graphics;
 
 public enum Positions {
 
-    ORIGIN(-300,-300),
     SPAWN1(56,260),
     SPAWN2(226,260),
     SPAWN3(424, 262),
