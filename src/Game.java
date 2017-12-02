@@ -44,15 +44,14 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     }
 
     public void start() throws InterruptedException {
-
         generateIntroStage();
 
-        generateMenuStage();
-
-        generateGameStage();
-
-        gameStage();
-
+        while (true){
+            generateMenuStage();
+            generateGameStage();
+            gameStage();
+            generateCredits();
+        }
     }
 
     public void generateIntroStage() throws InterruptedException {
@@ -84,32 +83,31 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         generateMouse();
     }
 
-    public void generateCredits(){
+    public void generateCredits() throws InterruptedException{
         grid.getRepresentation().delete();
         grid.generate(GridTypes.CREDITS);
         grid.getRepresentation().draw();
 
         showScore();
-
-
     }
 
-    public void showScore(){
+    public void showScore() throws InterruptedException{
         Text score = new Text(400,200,"--------- Score ------- \n"
                 +" Killed Aliens: " + this.player.getShotsOnTarget()+"\n"
                 + "Shots fired: " + this.player.getShootsFired());
 
         score.setColor(Color.RED);
         score.draw();
+
+        TimeUnit.SECONDS.sleep(5);
+
+        score.delete();
     }
 
     public void generateGameObjects(){
-
-        int random;
-        int counter=0;
         objects = new GameObjects[numberOfHostages+numberOfAliens];
-        for (int i = 0; i < objects.length ; i++) {
 
+        for (int i = 0; i < objects.length ; i++) {
             objects[i] = ObjectFactory.generateObject();
         }
     }
@@ -123,9 +121,10 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
                     continue;
                 }
                 objects[i].summon();
-                TimeUnit.MILLISECONDS.sleep(800/counter);
+                //TimeUnit.MILLISECONDS.sleep(800/counter);
+                TimeUnit.SECONDS.sleep(1);
                 objects[i].hide();
-                TimeUnit.MILLISECONDS.sleep(800/counter);
+                //TimeUnit.MILLISECONDS.sleep(800/counter);
 
                 System.out.println(i);
 
@@ -136,8 +135,15 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
             }
         }
 
+        cleanGameStage();
         System.out.println(player.getShotsOnTarget());
         System.out.println(player.getShootsFired());
+    }
+
+    private void cleanGameStage() {
+        gameEnded = false;
+        generateGameObjects();
+        isInMenu = true;
     }
 
     private boolean checkDeadAliens() {
