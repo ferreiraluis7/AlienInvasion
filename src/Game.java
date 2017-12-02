@@ -1,9 +1,4 @@
 import gameobjects.GameObjects;
-import gameobjects.hostages.Hostage1;
-import gameobjects.hostages.Hostage2;
-import gameobjects.hostages.Hostage3;
-import graphics.Grid;
-import graphics.GridTypes;
 import graphics.Positions;
 import kuusisto.tinysound.TinySound;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -37,8 +32,6 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     public void init() {
         TinySound.init();
-
-
         this.player = new Player();
         this.grid = new Grid();
         this.objects = new GameObjects[numberOfAliens + numberOfHostages];
@@ -54,12 +47,12 @@ public class Game implements MouseHandler, KeyboardHandler {
 
         generateGameStage();
 
+        gameStage();
+
     }
 
-    private void generateIntroStage() throws InterruptedException {
-
-        SoundPlayer.playMusic(SoundPlayer.ChooseSound.INTROMUSIC);
-
+    public void generateIntroStage() throws InterruptedException {
+       // SoundPlayer.playMusic(1);
         grid.generate(GridTypes.INTRO);
         grid.getRepresentation().draw();
         TimeUnit.SECONDS.sleep(3);
@@ -77,45 +70,43 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     private void generateGameStage(){
         grid.getRepresentation().delete();
-        grid.generate(GridTypes.MENU);
+        grid.generate(GridTypes.GAME);
         grid.getRepresentation().draw();
 
         generateMouse();
     }
 
-    private void generateGameObjects(){
+    public void generateGameObjects(){
 
-        for(int i = 0 ; i < objects.length; i++) {
-            if(i == numberOfAliens) {
-                objects[i] = new Hostage1();
+        int random;
+        int counter=0;
+        objects = new GameObjects[numberOfHostages+numberOfAliens];
+        for (int i = 0; i < objects.length ; i++) {
 
-            } else if(i == numberOfAliens + 1) {
-                objects[i] = new Hostage2();
-
-            } else if (i == numberOfAliens +2){
-                objects[i] = new Hostage3();
-
-            } else {
-                objects[i] = AlienFactory.generateAlien();
-            }
+            objects[i] = ObjectFactory.generateObject();
         }
     }
 
-    private void gameStage(){
-        int random;
+    private void gameStage() throws InterruptedException{
+
+
         while(!gameEnded){
-            for (int i = 0; i < Positions.values().length; i++) {
-                random = (int) (Math.random()*Positions.values().length);
-                if(objects[random].getCurrentPosition().isOccupied()){
+            for (int i = 0; i < objects.length; i++) {
+                if(objects[i].isDead()){
                     continue;
                 }
-                objects[random].summon();
-                objects[random].getCurrentPosition().setOccupied(true);
+                for (int j = 0; j <Positions.values().length ; j++) {
+                    objects[i].setCurrentPosition(Positions.values()[j]);
+                    objects[i].summon();
+                    sightCross.draw();
+                    TimeUnit.MILLISECONDS.sleep(500);
+                    if(objects[i].isDead()){
+                        break;
+                    }
+                    objects[i].hide();
+                    objects[i].setCurrentPosition(null);
+                }
             }
-            if(checkDeadAliens()) {
-                gameEnded = true;
-            }
-
         }
     }
 
@@ -129,9 +120,26 @@ public class Game implements MouseHandler, KeyboardHandler {
                 return true;
             }
         }
+        return false;
+    }
+
+    private boolean checkDeadHostages(){
+
+        for (int i = numberOfAliens; i < objects.length; i++) {
+
+                if (!objects[i].isDead()){
+                    return true;
+                }
+
+                if (!objects[i].isDead() && i == objects.length - 1){
+                    return true;
+                }
+
+        }
 
         return false;
     }
+
 
     private void generateMouse() {
         this.sight = new Mouse(this);
@@ -151,7 +159,8 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        SoundPlayer.playSound(SoundPlayer.ChooseSound.FIRE);
+        //SoundPlayer.playSound();
+        if(sightX > )
 
     }
 
@@ -160,7 +169,7 @@ public class Game implements MouseHandler, KeyboardHandler {
         this.sightX = (int) mouseEvent.getX();
         this.sightY = (int) mouseEvent.getY();
 
-        if((mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) && (mouseEvent.getY() < (sightCross.getHeight()/2) + 23 || mouseEvent.getY() > gameHeight)){ //canvas bar has 23 pixels
+      /*  if((mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) && (mouseEvent.getY() < (sightCross.getHeight()/2) + 23 || mouseEvent.getY() > gameHeight)){ //canvas bar has 23 pixels
             sightCross.translate(0,0);
         } else if (mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) {
             sightCross.translate(0,mouseEvent.getY() - sightCross.getHeight() - sightCross.getY());
@@ -168,8 +177,7 @@ public class Game implements MouseHandler, KeyboardHandler {
             sightCross.translate(mouseEvent.getX() - sightCross.getWidth()/2  - sightCross.getX(), 0);
         } else {
             sightCross.translate(mouseEvent.getX() - sightCross.getWidth()/2  - sightCross.getX(), mouseEvent.getY() - sightCross.getHeight() - sightCross.getY());
-        }
-
+        }*/
     }
 
     @Override

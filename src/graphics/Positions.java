@@ -2,10 +2,10 @@ package graphics;
 
 public enum Positions {
 
-    SPAWN1(56,263),
-    SPAWN2(226,263),
-    SPAWN3(424, 267),
-    SPAWN4(651, 272);
+    SPAWN1(56,260),
+    SPAWN2(226,260),
+    SPAWN3(424, 262),
+    SPAWN4(651, 262);
 
 
 

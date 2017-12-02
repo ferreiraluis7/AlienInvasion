@@ -4,18 +4,18 @@ public class SoundPlayer {
 
 
 
-    public static void playMusic(ChooseSound sound){
+    public static void playMusic(int musicNum){
 
 
-        switch (sound){
+        switch (musicNum){
 
-            case INTROMUSIC:
+            case 1:
 
-                Music song = TinySound.loadMusic("MusicAndSound/intro.wav");
+                Music song = TinySound.loadMusic("resources/MusicAndSound/intro.wav");
                 song.play(true);
                 break;
-            case GAMEMUSIC:
-                Music song2 = TinySound.loadMusic("MusicAndSound/throughspace.wav");
+            case 2:
+                Music song2 = TinySound.loadMusic("resources/MusicAndSound/throughspace.wav");
                 song2.play(true);
                 break;
 
@@ -29,40 +29,16 @@ public class SoundPlayer {
 
 
     }
-    public static void playSound(ChooseSound sound){
-        Sound fire = TinySound.loadSound("MusicAndSound/pistol.wav");
-        Sound alienappear = TinySound.loadSound("MusicAndSound/")
-        switch (sound){
-            case FIRE:
+    public static void playSound(){
 
-                fire.play();
-
-
-
-                break;
-
-
-        }
-
-
+        Sound fire = TinySound.loadSound("resources/MusicAndSound/pistol.wav");
+        fire.play();
 
 
 
     }
 
     public static void stopMusic(){
-
-    }
-
-
-    public enum ChooseSound {
-        FIRE,
-        ALIENAPPEAR,
-        ALIENDEAD,
-        HOSTAGEAPPEAR,
-        HOSTAGEDEAD,
-        INTROMUSIC,
-        GAMEMUSIC,
 
     }
 
