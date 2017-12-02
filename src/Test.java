@@ -1,7 +1,9 @@
+import kuusisto.tinysound.TinySound;
+
 public class Test {
 
     public static void main(String[] args) {
-
+        TinySound.init();
        /* Grid grid = new Grid();
         grid.generate(GridTypes.MENU);// initial --> initial screen
         grid.getRepresentation().draw();

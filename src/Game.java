@@ -13,7 +13,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 import java.util.concurrent.TimeUnit;
 
-public class Game implements MouseHandler, KeyboardHandler {
+public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
 
     public static final int numberOfAliens = 27;
     public static final int numberOfHostages = 3;
@@ -31,7 +31,7 @@ public class Game implements MouseHandler, KeyboardHandler {
     private boolean gameEnded = false;
 
     public void init() {
-        TinySound.init();
+
         this.player = new Player();
         this.grid = new Grid();
         this.objects = new GameObjects[numberOfAliens + numberOfHostages];
@@ -52,7 +52,7 @@ public class Game implements MouseHandler, KeyboardHandler {
     }
 
     public void generateIntroStage() throws InterruptedException {
-       // SoundPlayer.playMusic(1);
+        playMusic(chooseSound.INTRO);
         grid.generate(GridTypes.INTRO);
         grid.getRepresentation().draw();
         TimeUnit.SECONDS.sleep(3);
@@ -69,6 +69,8 @@ public class Game implements MouseHandler, KeyboardHandler {
     }
 
     private void generateGameStage(){
+        intro.stop();
+        playMusic(chooseSound.GAMEMUSIC);
         grid.getRepresentation().delete();
         grid.generate(GridTypes.GAME);
         grid.getRepresentation().draw();
@@ -99,6 +101,7 @@ public class Game implements MouseHandler, KeyboardHandler {
                     objects[i].setCurrentPosition(Positions.values()[j]);
                     objects[i].summon();
                     sightCross.draw();
+                    playSound(chooseSound.ALIENAPPEAR);
                     TimeUnit.MILLISECONDS.sleep(500);
                     if(objects[i].isDead()){
                         break;
@@ -160,7 +163,7 @@ public class Game implements MouseHandler, KeyboardHandler {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         //SoundPlayer.playSound();
-        if(sightX > )
+        //if(sightX > )
 
     }
 
