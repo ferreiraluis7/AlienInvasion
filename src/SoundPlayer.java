@@ -4,12 +4,10 @@ public class SoundPlayer {
 
     Music intro = TinySound.loadMusic("MusicAndSound/intro.wav");
     Music gameMusic = TinySound.loadMusic("MusicAndSound/gameStageMusic.wav");
+    Music credits = TinySound.loadMusic("MusicAndSound/credits.wav");
     Sound fire = TinySound.loadSound("MusicAndSound/pistol.wav");
-    Sound alienAppear = TinySound.loadSound("MusicAndSound/alienAppear.wav");
-    Sound alienDead = TinySound.loadSound("MusicAndSound/alienDead.wav");
-    Sound hostageApear = TinySound.loadSound("MusicAndSound/hostageAppear.wav");
+    Sound appear = TinySound.loadSound("MusicAndSound/appear.wav");
     Sound hostageDead = TinySound.loadSound("MusicAndSound/hostageDead.wav");
-
 
 
 
@@ -50,7 +48,7 @@ public class SoundPlayer {
                 break;
             case ALIENAPPEAR:
 
-                alienAppear.play();
+                appear.play();
         }
 
 
