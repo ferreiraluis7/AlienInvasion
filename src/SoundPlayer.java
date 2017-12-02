@@ -7,7 +7,9 @@ public class SoundPlayer {
     Music credits = TinySound.loadMusic("MusicAndSound/credits.wav");
     Sound fire = TinySound.loadSound("MusicAndSound/pistol.wav");
     Sound appear = TinySound.loadSound("MusicAndSound/appear.wav");
-    Sound hostageDead = TinySound.loadSound("MusicAndSound/hostageDead.wav");
+    Sound dead = TinySound.loadSound("MusicAndSound/hostageDead.wav");
+    Sound catarina = TinySound.loadSound("MusicAndSound/catarina.wav");
+    Sound noise = TinySound.loadSound("MusicAndSound/noise.wav");
 
 
 
