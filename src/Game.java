@@ -29,6 +29,7 @@ public class Game implements MouseHandler, KeyboardHandler {
     private int sightY;
     private boolean isInMenu = true;
     private boolean gameEnded = false;
+    private MovieMak3r movieMak3r;
 
     public void init() {
         TinySound.init();
@@ -37,6 +38,7 @@ public class Game implements MouseHandler, KeyboardHandler {
         this.objects = new GameObjects[numberOfAliens + numberOfHostages];
         generateGameObjects();
         generateKeyboard();
+        movieMak3r = new MovieMak3r();
     }
 
     public void start() throws InterruptedException {
@@ -54,8 +56,10 @@ public class Game implements MouseHandler, KeyboardHandler {
     public void generateIntroStage() throws InterruptedException {
        // SoundPlayer.playMusic(1);
         grid.generate(GridTypes.INTRO);
-        grid.getRepresentation().draw();
-        TimeUnit.SECONDS.sleep(3);
+       // grid.getRepresentation().draw();
+
+        movieMak3r.play("resources/images/Intro/", "Intro",92,100);
+
     }
 
     private void generateMenuStage() throws  InterruptedException {
