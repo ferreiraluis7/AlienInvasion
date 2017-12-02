@@ -17,13 +17,15 @@ public class Test {
         Player cenas = new Player();
     }*/
 
-       Game game = new Game();
-       game.init();
-       try {
-           game.start();
-       } catch (InterruptedException e){
+       Game g=new Game();
+       g.init();
+       try{
+           g.start();
+       } catch (InterruptedException e) {
 
        }
+
+
 
 
     }

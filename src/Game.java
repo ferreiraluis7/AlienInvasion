@@ -1,7 +1,4 @@
 import gameobjects.GameObjects;
-import gameobjects.hostages.Hostage1;
-import gameobjects.hostages.Hostage2;
-import gameobjects.hostages.Hostage3;
 import graphics.Positions;
 import kuusisto.tinysound.TinySound;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -35,7 +32,6 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     public void init() {
         TinySound.init();
-
         this.player = new Player();
         this.grid = new Grid();
         this.objects = new GameObjects[numberOfAliens + numberOfHostages];
@@ -55,9 +51,8 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     }
 
-    private void generateIntroStage() throws InterruptedException {
+    public void generateIntroStage() throws InterruptedException {
         SoundPlayer.playMusic(1);
-
         grid.generate(GridTypes.INTRO);
         grid.getRepresentation().draw();
         TimeUnit.SECONDS.sleep(3);
@@ -75,52 +70,32 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     private void generateGameStage(){
         grid.getRepresentation().delete();
-        grid.generate(GridTypes.MENU);
+        grid.generate(GridTypes.GAME);
         grid.getRepresentation().draw();
 
         generateMouse();
     }
 
-    private void generateGameObjects(){
+    public void generateGameObjects(){
 
         int random;
         int counter=0;
+        objects = new GameObjects[numberOfHostages+numberOfAliens];
+        for (int i = 0; i < objects.length ; i++) {
 
-        for (int i = 0; i < numberOfHostages ; i++) {
-            counter++;
-            random = 0;
-
-            while (objects[random] == null){
-                random = (int) (Math.random() * objects.length);
-            }
-
-            if(counter == 1){
-                objects[random] = new Hostage1();
-            } else if(counter == 2){
-
-                objects[random] = new Hostage2();
-
-            } else {
-                objects[random] = new Hostage3();
-            }
-        }
-
-        for(int i = 0 ; i < objects.length; i++) {
-            if(objects[i] != null){
-                continue;
-            }
-            objects[i] = AlienFactory.generateAlien();
+            objects[i] = ObjectFactory.generateObject();
         }
     }
 
     private void gameStage() throws InterruptedException{
         int randomPosition;
-        randomPosition = (int) (Math.random() * objects.length);
+        randomPosition = 0;
         int objectIndex=0;
 
         while(!gameEnded){
+            randomPosition = (int) (Math.random() * Positions.values().length);
             while (Positions.values()[randomPosition].isOccupied()){
-                randomPosition = (int) (Math.random() * objects.length);
+                randomPosition = (int) (Math.random() * Positions.values().length);
             }
 
             objects[objectIndex].setCurrentPosition(Positions.values()[randomPosition]);
