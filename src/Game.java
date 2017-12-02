@@ -5,6 +5,7 @@ import gameobjects.hostages.Hostage3;
 import graphics.Grid;
 import graphics.GridTypes;
 import graphics.Positions;
+import kuusisto.tinysound.TinySound;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
@@ -35,6 +36,9 @@ public class Game implements MouseHandler, KeyboardHandler {
     private boolean gameEnded = false;
 
     public void init() {
+        TinySound.init();
+
+
         this.player = new Player();
         this.grid = new Grid();
         this.objects = new GameObjects[numberOfAliens + numberOfHostages];
@@ -53,6 +57,9 @@ public class Game implements MouseHandler, KeyboardHandler {
     }
 
     private void generateIntroStage() throws InterruptedException {
+
+        SoundPlayer.playMusic(SoundPlayer.ChooseSound.INTROMUSIC);
+
         grid.generate(GridTypes.INTRO);
         grid.getRepresentation().draw();
         TimeUnit.SECONDS.sleep(3);
@@ -144,7 +151,8 @@ public class Game implements MouseHandler, KeyboardHandler {
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        //shoot(target);
+        SoundPlayer.playSound(SoundPlayer.ChooseSound.FIRE);
+
     }
 
     @Override
