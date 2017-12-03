@@ -88,11 +88,13 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         grid.getRepresentation().delete();
         grid.generate(GridTypes.CREDITS);
         grid.getRepresentation().draw();
-
+        gameMusic.stop();
+        credits.play(true);
         showScore();
     }
 
     public void showScore() throws InterruptedException{
+
         Text score = new Text(400,200,"--------- Score ------- \n"
                 +" Killed Aliens: " + this.player.getShotsOnTarget()+"\n"
                 + "Shots fired: " + this.player.getShootsFired());
@@ -100,7 +102,9 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         score.setColor(Color.RED);
         score.draw();
 
-        TimeUnit.SECONDS.sleep(5);
+        TimeUnit.SECONDS.sleep(20);
+        credits.stop();
+        intro.play(true);
 
         score.delete();
     }
