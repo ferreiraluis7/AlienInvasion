@@ -1,12 +1,20 @@
 public class Player extends SoundPlayer{
 
     private int score = 0;
-    private int shootsFired = 0;
+    private int shotsFired = 0;
     private int shotsOnTarget = 0;
 
     public void shoot() {
         fire.play();
-        shootsFired++;
+        shotsFired++;
+    }
+
+    public void resetShootsFired() {
+        shotsFired = 0;
+    }
+
+    public void resetShotsOnTarget() {
+        shotsOnTarget = 0;
     }
 
     public void shotOnTarget() {
@@ -17,8 +25,8 @@ public class Player extends SoundPlayer{
         return shotsOnTarget;
     }
 
-    public int getShootsFired() {
-        return shootsFired;
+    public int getShotsFired() {
+        return shotsFired;
     }
 }
 

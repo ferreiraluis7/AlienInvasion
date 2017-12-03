@@ -1,5 +1,4 @@
 import gameobjects.GameObjects;
-import graphics.Positions;
 import kuusisto.tinysound.TinySound;
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Text;
@@ -32,6 +31,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     private boolean isInMenu = true;
     private boolean gameEnded = false;
     private MovieMak3r movieMak3r;
+    private Text inGameInfo;
 
     public void init() {
         TinySound.init();
@@ -44,7 +44,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     }
 
     public void start() throws InterruptedException {
-        generateIntroStage();
+            generateIntroStage();
 
         while (true){
             generateMenuStage();
@@ -55,7 +55,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     }
 
 
-    public void generateIntroStage() throws InterruptedException {
+    private void generateIntroStage() throws InterruptedException {
         playMusic(chooseSound.INTRO);
         grid.generate(GridTypes.INTRO);
        // grid.getRepresentation().draw();
@@ -65,6 +65,8 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     }
 
     private void generateMenuStage() throws  InterruptedException {
+        this.player.resetShotsOnTarget();
+        this.player.resetShootsFired();
         grid.getRepresentation().delete();
         grid.generate(GridTypes.MENU);
         grid.getRepresentation().draw();
@@ -80,11 +82,11 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         grid.getRepresentation().delete();
         grid.generate(GridTypes.GAME);
         grid.getRepresentation().draw();
-
+        generateInGameInfo();
         generateMouse();
     }
 
-    public void generateCredits() throws InterruptedException{
+    private void generateCredits() throws InterruptedException{
         grid.getRepresentation().delete();
         grid.generate(GridTypes.CREDITS);
         grid.getRepresentation().draw();
@@ -93,11 +95,10 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         showScore();
     }
 
-    public void showScore() throws InterruptedException{
-
+    private void showScore() throws InterruptedException{
         Text score = new Text(400,200,"--------- Score ------- \n"
                 +" Killed Aliens: " + this.player.getShotsOnTarget()+"\n"
-                + "Shots fired: " + this.player.getShootsFired());
+                + "Shots fired: " + this.player.getShotsFired());
 
         score.setColor(Color.RED);
         score.draw();
@@ -109,7 +110,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         score.delete();
     }
 
-    public void generateGameObjects(){
+    private void generateGameObjects(){
         objects = new GameObjects[numberOfHostages+numberOfAliens];
 
         for (int i = 0; i < objects.length ; i++) {
@@ -142,16 +143,25 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
                 }
             }
         }
-
+        System.out.println("luis");
         cleanGameStage();
         System.out.println(player.getShotsOnTarget());
-        System.out.println(player.getShootsFired());
+        System.out.println(player.getShotsFired());
+    }
+
+    private void generateInGameInfo(){
+        this.inGameInfo = new Text(40,176,"Aliens Killed: " + this.player.getShotsOnTarget());
+        inGameInfo.grow(25,15);
+        inGameInfo.setColor(Color.RED);
+        inGameInfo.draw();
+
     }
 
     private void cleanGameStage() {
         gameEnded = false;
         generateGameObjects();
         isInMenu = true;
+        inGameInfo.delete();
     }
 
     private boolean checkDeadAliens() {
@@ -195,7 +205,10 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
                 if(sightY >= objectOriginY && sightY <= objects[i].getShape().getMaxY()){
                     dead.play();
                     objects[i].hit();
-                    player.shotOnTarget();
+                    if(objects[i].isAlien()){
+                        player.shotOnTarget();
+                        inGameInfo.setText("Aliens Killed: " + this.player.getShotsOnTarget());
+                    }
                 }
             }
         }
@@ -228,19 +241,6 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     public void mouseMoved(MouseEvent mouseEvent) {
         this.sightX = (int) mouseEvent.getX();
         this.sightY = (int) mouseEvent.getY();
-        System.out.println(sightX+" "+sightY);
-
-        //System.out.println("X: " +(int) mouseEvent.getX() + " Y: "+(int) mouseEvent.getX());
-
-      /*  if((mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) && (mouseEvent.getY() < (sightCross.getHeight()/2) + 23 || mouseEvent.getY() > gameHeight)){ //canvas bar has 23 pixels
-            sightCross.translate(0,0);
-        } else if (mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) {
-            sightCross.translate(0,mouseEvent.getY() - sightCross.getHeight() - sightCross.getY());
-        } else if (mouseEvent.getY() < sightCross.getHeight() || mouseEvent.getY() > gameHeight) {
-            sightCross.translate(mouseEvent.getX() - sightCross.getWidth()/2  - sightCross.getX(), 0);
-        } else {
-            sightCross.translate(mouseEvent.getX() - sightCross.getWidth()/2  - sightCross.getX(), mouseEvent.getY() - sightCross.getHeight() - sightCross.getY());
-        }*/
     }
 
     @Override

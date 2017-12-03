@@ -5,7 +5,7 @@ public class Grid {
     private Picture representation;
     private GridTypes type;
 
-    public void generate(GridTypes grid){
+    void generate(GridTypes grid){
 
         switch (grid){
             case MENU:

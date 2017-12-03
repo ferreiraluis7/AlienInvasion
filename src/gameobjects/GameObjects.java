@@ -30,7 +30,7 @@ public abstract class GameObjects {
 
     public void summon(){
         Positions nextPos;
-
+        shape.grow(-10,-10);
         shape.draw();
         this.isVisible = true;
 
@@ -40,13 +40,15 @@ public abstract class GameObjects {
     }
 
     public void move(Positions nextPos){
-        shape.translate(nextPos.getxPoint() - currentPosition.getxPoint(),nextPos.getyPoint() - currentPosition.getyPoint());
-    }
-
+            shape.translate(nextPos.getxPoint() - currentPosition.getxPoint(),nextPos.getyPoint() - currentPosition.getyPoint());
+        }
 
     public void hide(){
-        this.shape.delete();
-        this.isVisible = false;
+            this.shape.delete();
+            shape.grow(10,10);
+            this.isVisible = false;
+
+
     }
 
     public boolean isDead() {
