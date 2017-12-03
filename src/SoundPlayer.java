@@ -13,7 +13,6 @@ public class SoundPlayer {
     Music footsteps = TinySound.loadMusic("MusicAndSound/footsteps.wav");
     Sound beamdown = TinySound.loadSound("MusicAndSound/beamdown.wav");
     Sound spaceship = TinySound.loadSound("MusicAndSound/spaceship.wav");
-    Sound speech = TinySound.loadSound("MusicAndSound/speech.wav");
 
 
 

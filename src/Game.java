@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
 
-    public static final int numberOfAliens = 27;
+    public static final int numberOfAliens = 30;
     public static final int numberOfHostages = 3;
 
     private Grid grid;
@@ -35,7 +35,6 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     private Text alienShotsInfo;
     private Text hostageShotsInfo;
     private boolean inCredits;
-    private Text scoreMessage;
     private DecimalFormat round;
     private boolean keyboardSilent = true;
 
@@ -65,7 +64,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     private void generateIntroStage() throws InterruptedException {
         intro.play(true,0.3);
         grid.generate(GridTypes.INTRO);
-        movieMak3r.play("resources/images/Intro/", "Intro",635,0,200);
+        movieMak3r.play("images/Intro/", "Intro",635,0,200);
 
     }
 
