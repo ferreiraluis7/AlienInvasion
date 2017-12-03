@@ -11,23 +11,23 @@ public class ObjectFactory {
     public static GameObjects generateObject() {
         int chanceObjectGenerator = Randomizer.generate(0,101);
 
-        if(chanceObjectGenerator <= 25) {
+        if(chanceObjectGenerator <= 30) {
             return new BasicAlien();
         }
 
-        if(chanceObjectGenerator <= 55) {
+        if(chanceObjectGenerator <= 60) {
             return new WarriorAlien();
         }
 
-        if(chanceObjectGenerator <= 70) {
+        if(chanceObjectGenerator <= 85) {
             return new ChiefAlien();
         }
 
-        if(chanceObjectGenerator <= 80) {
+        if(chanceObjectGenerator <= 90) {
             return new Hostage1();
         }
 
-        if(chanceObjectGenerator < 90) {
+        if(chanceObjectGenerator <= 95) {
             return new Hostage2();
         }
         return new Hostage3();

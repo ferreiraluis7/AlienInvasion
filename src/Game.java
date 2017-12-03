@@ -118,6 +118,8 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         while(!gameEnded){
             counter ++;
             for (int i = 0; i < objects.length; i++) {
+                System.out.println(i);
+                System.out.println(objects[i]);
                 if (objects[i].isDead()) {
                     continue;
                 }
@@ -129,10 +131,9 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
                 //TimeUnit.MILLISECONDS.sleep(800/counter);
                 TimeUnit.SECONDS.sleep(1);
 
-                System.out.println(i);
 
                 if (checkDeadHostages() || checkDeadAliens()) {
-
+                    System.out.println("game over?");
                     gameEnded = true;
                 }
             }
@@ -158,20 +159,21 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
                 }
             }
         }
-
         return true;
     }
 
     private boolean checkDeadHostages(){
-
+        boolean hostageAlive = false;
         for (int i = 0; i < objects.length; i++) {
-            if(objects[i].isAlien()){
-
+            if(!objects[i].isAlien()){
+                if(objects[i].isDead()){
+                    hostageAlive = true;
+                } else {
+                    return false;
+                }
             }
-
-
         }
-            return true;
+            return hostageAlive;
     }
 
     private void shotOnTarget(){
@@ -179,7 +181,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         int objectOriginY;
 
         for (int i = 0; i < objects.length ; i++) {
-            if(objects[i].isDead() && !objects[i].isVisible()){
+            if(objects[i].isDead() || !objects[i].isVisible()){
                 continue;
             }
             objectOriginX = objects[i].getCurrentPosition().getxPoint();
@@ -222,6 +224,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     public void mouseMoved(MouseEvent mouseEvent) {
         this.sightX = (int) mouseEvent.getX();
         this.sightY = (int) mouseEvent.getY();
+        System.out.println(sightX+" "+sightY);
 
         //System.out.println("X: " +(int) mouseEvent.getX() + " Y: "+(int) mouseEvent.getX());
 

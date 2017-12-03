@@ -13,7 +13,7 @@ public abstract class GameObjects {
     private Positions currentPosition;
     private int currentAnim = 0;
     private boolean isAlien;
-    private boolean isVisible;
+    private boolean isVisible = false;
 
     public GameObjects(GameObjectTypes type, boolean isAlien) {
         this.type = type;
