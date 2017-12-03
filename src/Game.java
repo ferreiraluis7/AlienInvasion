@@ -121,6 +121,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
                     continue;
                 }
                 objects[i].summon();
+                appear.play();
                 //TimeUnit.MILLISECONDS.sleep(800/counter);
                 TimeUnit.SECONDS.sleep(1);
                 objects[i].hide();
@@ -196,6 +197,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
 
             if(sightX >= objectOriginX && sightX <= objects[i].getShape().getMaxX()){
                 if(sightY >= objectOriginY && sightY <= objects[i].getShape().getMaxY()){
+                    dead.play();
                     objects[i].hit();
                     player.shotOnTarget();
                 }
