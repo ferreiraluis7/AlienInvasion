@@ -33,11 +33,11 @@ public class Grid {
         }
     }
 
-    public Picture getRepresentation() {
+    Picture getRepresentation() {
         return representation;
     }
 
-    public GridTypes getType() {
+    GridTypes getType() {
         return type;
     }
 }

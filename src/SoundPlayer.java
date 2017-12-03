@@ -17,7 +17,7 @@ public class SoundPlayer {
 
 
 
-    public  void playMusic(chooseSound sound){
+    void playMusic(chooseSound sound){
 
 
         switch (sound){
@@ -41,7 +41,7 @@ public class SoundPlayer {
 
 
     }
-    public  void playSound(chooseSound sound){
+    void playSound(chooseSound sound){
 
         switch (sound){
             case PISTOL:

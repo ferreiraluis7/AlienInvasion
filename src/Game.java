@@ -46,7 +46,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     public void start() throws InterruptedException {
             generateIntroStage();
 
-        while (true){
+        while (true) {
             generateMenuStage();
             generateGameStage();
             gameStage();
@@ -242,8 +242,6 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent e) {
-
-
     }
 
     @Override
@@ -255,19 +253,6 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         } else if(grid.getType()==GridTypes.GAME) {
             player.shoot();
             shotOnTarget();
-        } else if(grid.getType()==GridTypes.CREDITS) {
-
         }
-
-
-
-    }
-
-    public GameObjects[] getObjects() {
-        return objects;
-    }
-
-    public Mouse getSight() {
-        return sight;
     }
 }

@@ -8,8 +8,6 @@ public abstract class GameObjects {
     private boolean isDead = false;
     private Picture shape;
     private GameObjectTypes type;
-    private int speedfactor;
-    private int counter = 0;
     private Positions currentPosition;
     private int currentAnim = 0;
     private boolean isAlien;
@@ -17,7 +15,6 @@ public abstract class GameObjects {
 
     public GameObjects(GameObjectTypes type, boolean isAlien) {
         this.type = type;
-        this.speedfactor = type.getSpeedFactor();
         this.isAlien = isAlien;
         this.currentPosition = Positions.values()[(int) (Math.random() * ((Positions.values().length)))];
         this.shape = new Picture(currentPosition.getxPoint(), currentPosition.getyPoint(),type.getPath() + "Anim10.png");

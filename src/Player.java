@@ -4,28 +4,28 @@ public class Player extends SoundPlayer{
     private int shotsFired = 0;
     private int shotsOnTarget = 0;
 
-    public void shoot() {
+    void shoot() {
         fire.play();
         shotsFired++;
     }
 
-    public void resetShootsFired() {
+    void resetShootsFired() {
         shotsFired = 0;
     }
 
-    public void resetShotsOnTarget() {
+    void resetShotsOnTarget() {
         shotsOnTarget = 0;
     }
 
-    public void shotOnTarget() {
+    void shotOnTarget() {
         shotsOnTarget++;
     }
 
-    public int getShotsOnTarget() {
+    int getShotsOnTarget() {
         return shotsOnTarget;
     }
 
-    public int getShotsFired() {
+    int getShotsFired() {
         return shotsFired;
     }
 }

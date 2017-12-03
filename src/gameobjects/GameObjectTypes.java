@@ -1,27 +1,22 @@
 package gameobjects;
 
 public enum GameObjectTypes {
-    BASICALIEN("resources/images/aliens/basicalien/", 1),
-    WARRIORALIEN("resources/images/aliens/warrioralien/", 2),
-    CHIEFALIEN("resources/images/aliens/chiefalien/", 3),
-    HOSTAGE1("resources/images/aliens/basicalien/", 1),
-    HOSTAGE2("resources/images/aliens/basicalien/", 1),
-    HOSTAGE3("resources/images/aliens/basicalien/", 1);
+    BASICALIEN("resources/images/aliens/basicalien/"),
+    WARRIORALIEN("resources/images/aliens/warrioralien/"),
+    CHIEFALIEN("resources/images/aliens/chiefalien/"),
+    HOSTAGE1("resources/images/aliens/basicalien/"),
+    HOSTAGE2("resources/images/aliens/basicalien/"),
+    HOSTAGE3("resources/images/aliens/basicalien/");
 
     private String path;
-    private int speedFactor;
 
-    GameObjectTypes(String path, int speedFactor) {
+    GameObjectTypes(String path) {
         this.path = path;
-        this.speedFactor = speedFactor;
 
     }
 
-    public String getPath() {
+    protected String getPath() {
         return this.path;
     }
 
-    public int getSpeedFactor() {
-        return speedFactor;
-    }
 }

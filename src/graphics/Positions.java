@@ -34,19 +34,4 @@ public enum Positions {
         return yPoint;
     }
 
-    public void setxPoint(int xPoint) {
-        this.xPoint = xPoint;
-    }
-
-    public void setyPoint(int yPoint) {
-        this.yPoint = yPoint;
-    }
-
-    public boolean isOccupied() {
-        return isOccupied;
-    }
-
-    public void setOccupied(boolean occupied) {
-        isOccupied = occupied;
-    }
 }

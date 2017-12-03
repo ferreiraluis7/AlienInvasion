@@ -10,7 +10,7 @@ public enum GridTypes {
     GridTypes(String pathname) {
         this.path = pathname;
     }
-    public String getPath() {
+    String getPath() {
         return path;
     }
 }

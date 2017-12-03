@@ -8,7 +8,7 @@ import gameobjects.hostages.Hostage3;
 
 public class ObjectFactory {
 
-    public static GameObjects generateObject() {
+    static GameObjects generateObject() {
         int chanceObjectGenerator = Randomizer.generate(0,101);
 
         if(chanceObjectGenerator <= 30) {

@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MovieMak3r extends SoundPlayer{
 
-    public void play(String resourcesPath, String imagePrefix, int picQuantity, int imageNumberSuffix, int mileseconds) throws InterruptedException{
+    void play(String resourcesPath, String imagePrefix, int picQuantity, int imageNumberSuffix, int mileseconds) throws InterruptedException{
         Picture picture = new Picture(0,0,resourcesPath + imagePrefix + imageNumberSuffix +".png");
 
 
