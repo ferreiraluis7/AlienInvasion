@@ -41,22 +41,12 @@ public class SoundPlayer {
 
 
     }
-    public  void playSound(chooseSound sound){
-
-        switch (sound){
-            case PISTOL:
-
-                fire.play();
-                break;
-            case ALIENAPPEAR:
-
-                appear.play();
-        }
 
 
 
 
-    }
+
+
 
     public static void stopMusic(){
 
