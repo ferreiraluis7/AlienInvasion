@@ -59,7 +59,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         grid.generate(GridTypes.INTRO);
        // grid.getRepresentation().draw();
 
-        movieMak3r.play("resources/images/Intro/", "Intro",92,0,100);
+        movieMak3r.play("resources/images/Intro/", "Intro",92,0,200);
 
     }
 

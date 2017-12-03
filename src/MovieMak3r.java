@@ -30,7 +30,7 @@ public class MovieMak3r extends SoundPlayer{
                 noise.stop();
             }
             if(i == 26){
-                catarina.play();
+                catarina.play(true);
             }
             if(i == 88){
                 catarina.stop();
