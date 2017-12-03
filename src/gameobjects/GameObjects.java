@@ -13,7 +13,7 @@ public abstract class GameObjects {
     private Positions currentPosition;
     private int currentAnim = 0;
     private boolean isAlien;
-    private boolean isSummoned = false;
+    private boolean isVisible;
 
     public GameObjects(GameObjectTypes type, boolean isAlien) {
         this.type = type;
@@ -32,6 +32,7 @@ public abstract class GameObjects {
         Positions nextPos;
 
         shape.draw();
+        this.isVisible = true;
 
         nextPos = Positions.values()[(int) (Math.random() * ((Positions.values().length)))];
         move(nextPos);
@@ -45,6 +46,7 @@ public abstract class GameObjects {
 
     public void hide(){
         this.shape.delete();
+        this.isVisible = false;
     }
 
     public boolean isDead() {
@@ -74,4 +76,9 @@ public abstract class GameObjects {
     public void setDead() {
         isDead = true;
     }
+
+    public boolean isVisible(){
+        return isVisible;
+    }
+
 }

@@ -54,6 +54,7 @@ public class Game implements MouseHandler, KeyboardHandler {
         }
     }
 
+
     public void generateIntroStage() throws InterruptedException {
        // SoundPlayer.playMusic(1);
         grid.generate(GridTypes.INTRO);
@@ -123,11 +124,11 @@ public class Game implements MouseHandler, KeyboardHandler {
                 TimeUnit.SECONDS.sleep(1);
                 objects[i].hide();
                 //TimeUnit.MILLISECONDS.sleep(800/counter);
+                TimeUnit.SECONDS.sleep(1);
 
                 System.out.println(i);
 
-                if (checkDeadHostages() || checkDeadAliens()) {
-
+                if (player.getShotsOnTarget() == 30) {
                     gameEnded = true;
                 }
             }
@@ -145,55 +146,38 @@ public class Game implements MouseHandler, KeyboardHandler {
     }
 
     private boolean checkDeadAliens() {
-        boolean alienIsDead = false;
+
         for (int i = 0; i < objects.length ; i++) {
-            if(!objects[i].isAlien()){
-                continue;
-            }
-
-            if(objects[i].isDead()) {
-                alienIsDead = true;
-            }
-
-            if (!objects[i].isDead()){
-                return alienIsDead;
+            if(objects[i].isAlien()){
+                if (!objects[i].isDead()){
+                    return false;
+                }
             }
         }
-        return alienIsDead;
+
+        return true;
     }
 
     private boolean checkDeadHostages(){
-        boolean hostageIsDead = false;
 
         for (int i = 0; i < objects.length; i++) {
             if(objects[i].isAlien()){
-                continue;
+
             }
 
-            if (objects[i].isDead()) {
-                hostageIsDead = true;
-            }
 
-            if (!objects[i].isDead()) {
-                return hostageIsDead;
-            }
         }
-            return hostageIsDead;
+            return true;
     }
 
     private void shotOnTarget(){
-        int objectOriginX;
-        int objectOriginY;
-
         for (int i = 0; i < objects.length ; i++) {
-            if(objects[i].isDead()){
+            if(objects[i].isDead() && !objects[i].isVisible()){
                 continue;
             }
-            objectOriginX = objects[i].getCurrentPosition().getxPoint();
-            objectOriginY = objects[i].getCurrentPosition().getyPoint();
 
-            if(sightX >= objectOriginX && sightX <= objects[i].getShape().getMaxX()){
-                if(sightY >= objectOriginY && sightY <= objects[i].getShape().getMaxY()){
+            if(sightX >= objects[i].getCurrentPosition().getyPoint() && sightX <= objects[i].getShape().getMaxX()){
+                if(sightY >= objects[i].getCurrentPosition().getyPoint() && sightY <= objects[i].getShape().getMaxY()){
                     objects[i].hit();
                     player.shotOnTarget();
                 }
@@ -229,7 +213,7 @@ public class Game implements MouseHandler, KeyboardHandler {
         this.sightX = (int) mouseEvent.getX();
         this.sightY = (int) mouseEvent.getY();
 
-        System.out.println("X: " +(int) mouseEvent.getX() + " Y: "+(int) mouseEvent.getX());
+        //System.out.println("X: " +(int) mouseEvent.getX() + " Y: "+(int) mouseEvent.getX());
 
       /*  if((mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) && (mouseEvent.getY() < (sightCross.getHeight()/2) + 23 || mouseEvent.getY() > gameHeight)){ //canvas bar has 23 pixels
             sightCross.translate(0,0);
