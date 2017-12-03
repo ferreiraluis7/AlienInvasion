@@ -10,7 +10,6 @@ import org.academiadecodigo.simplegraphics.mouse.Mouse;
 import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
 import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
 import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
-import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,20 +17,19 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
 
     public static final int numberOfAliens = 27;
     public static final int numberOfHostages = 3;
-    public static final int gameWidth = 800;
-    public static final int gameHeight = 600;
+
     private Grid grid;
     private Player player;
     private GameObjects[] objects;
     private Mouse sight;
     private Keyboard keyboard;
-    private Picture sightCross;
     private int sightX;
     private int sightY;
     private boolean isInMenu = true;
     private boolean gameEnded = false;
     private MovieMak3r movieMak3r;
-    private Text inGameInfo;
+    private Text alienShotsInfo;
+    private Text hostageShotsInfo;
 
     public void init() {
         TinySound.init();
@@ -65,8 +63,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     }
 
     private void generateMenuStage() throws  InterruptedException {
-        this.player.resetShotsOnTarget();
-        this.player.resetShootsFired();
+        resetStats();
         grid.getRepresentation().delete();
         grid.generate(GridTypes.MENU);
         grid.getRepresentation().draw();
@@ -118,47 +115,63 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     private void gameStage() throws InterruptedException{
         int counter = 1;
         while(!gameEnded){
-            counter ++;
+
             for (int i = 0; i < objects.length; i++) {
                 System.out.println(i);
                 System.out.println(objects[i]);
                 if (objects[i].isDead()) {
                     continue;
                 }
+                if(counter <= 500){
+                    counter += 75;
+                }
+
                 objects[i].summon();
                 appear.play();
-                //TimeUnit.MILLISECONDS.sleep(800/counter);
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.MILLISECONDS.sleep(1000 - counter);
+                //TimeUnit.SECONDS.sleep(1);
                 objects[i].hide();
-                //TimeUnit.MILLISECONDS.sleep(800/counter);
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.MILLISECONDS.sleep(1000 - counter);
+                //TimeUnit.SECONDS.sleep(1);
 
 
                 if (checkDeadHostages() || checkDeadAliens()) {
-                    System.out.println("game over?");
                     gameEnded = true;
                 }
             }
         }
-        System.out.println("luis");
         cleanGameStage();
         System.out.println(player.getShotsOnTarget());
         System.out.println(player.getShotsFired());
     }
 
     private void generateInGameInfo(){
-        this.inGameInfo = new Text(40,176,"Aliens Killed: " + this.player.getShotsOnTarget());
-        inGameInfo.grow(25,15);
-        inGameInfo.setColor(Color.RED);
-        inGameInfo.draw();
+        this.alienShotsInfo = new Text(40,176,"Aliens Killed: " + this.player.getShotsOnTarget());
+        this.hostageShotsInfo = new Text(40,200,"Hostages killed: " + this.player.getShotOnHostages());
+        alienShotsInfo.grow(25,15);
+        alienShotsInfo.setColor(Color.RED);
+        alienShotsInfo.draw();
+        hostageShotsInfo.grow(25,15);
+        hostageShotsInfo.setColor(Color.RED);
+        hostageShotsInfo.draw();
+    }
 
+    private void updateGameInfo(){
+        alienShotsInfo.setText("Aliens Killed: " + this.player.getShotsOnTarget());
+        hostageShotsInfo.setText("Hostages killed: " + this.player.getShotOnHostages());
+    }
+
+    private void resetStats(){
+        this.player.resetShotsOnTarget();
+        this.player.resetShootsFired();
+        this.player.resetShotsOnHostages();
     }
 
     private void cleanGameStage() {
         gameEnded = false;
         generateGameObjects();
         isInMenu = true;
-        inGameInfo.delete();
+        alienShotsInfo.delete();
     }
 
     private boolean checkDeadAliens() {
@@ -204,8 +217,10 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
                     objects[i].hit();
                     if(objects[i].isAlien()){
                         player.shotOnTarget();
-                        inGameInfo.setText("Aliens Killed: " + this.player.getShotsOnTarget());
+                    } else {
+                        player.shotOnHostages();
                     }
+                    updateGameInfo();
                 }
             }
         }

@@ -11,9 +11,9 @@ public enum Positions {
     //Middle
     SPAWN5(63, 218),
     SPAWN6(184, 219),
-    SPAWN7(310, 220),
-    SPAWN8(440, 220),
-    SPAWN9(568, 220),
+    SPAWN7(305, 220),
+    SPAWN8(430, 220),
+    SPAWN9(562, 220),
     SPAWN10(685, 218);
 
 

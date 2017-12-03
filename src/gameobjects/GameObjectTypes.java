@@ -4,9 +4,9 @@ public enum GameObjectTypes {
     BASICALIEN("resources/images/aliens/basicalien/"),
     WARRIORALIEN("resources/images/aliens/warrioralien/"),
     CHIEFALIEN("resources/images/aliens/chiefalien/"),
-    HOSTAGE1("resources/images/aliens/basicalien/"),
-    HOSTAGE2("resources/images/aliens/basicalien/"),
-    HOSTAGE3("resources/images/aliens/basicalien/");
+    HOSTAGE1("resources/images/hostages/sérgio/"),
+    HOSTAGE2("resources/images/hostages/audrey/"),
+    HOSTAGE3("resources/images/hostages/faustino/");
 
     private String path;
 
