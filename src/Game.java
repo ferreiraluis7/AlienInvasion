@@ -54,6 +54,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         }
     }
 
+
     public void generateIntroStage() throws InterruptedException {
         playMusic(chooseSound.INTRO);
         grid.generate(GridTypes.INTRO);
@@ -126,6 +127,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
                 TimeUnit.SECONDS.sleep(1);
                 objects[i].hide();
                 //TimeUnit.MILLISECONDS.sleep(800/counter);
+                TimeUnit.SECONDS.sleep(1);
 
                 System.out.println(i);
 
@@ -148,40 +150,28 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     }
 
     private boolean checkDeadAliens() {
-        boolean alienIsDead = false;
+
         for (int i = 0; i < objects.length ; i++) {
-            if(!objects[i].isAlien()){
-                continue;
-            }
-
-            if(objects[i].isDead()) {
-                alienIsDead = true;
-            }
-
-            if (!objects[i].isDead()){
-                return alienIsDead;
+            if(objects[i].isAlien()){
+                if (!objects[i].isDead()){
+                    return false;
+                }
             }
         }
-        return alienIsDead;
+
+        return true;
     }
 
     private boolean checkDeadHostages(){
-        boolean hostageIsDead = false;
 
         for (int i = 0; i < objects.length; i++) {
             if(objects[i].isAlien()){
-                continue;
+
             }
 
-            if (objects[i].isDead()) {
-                hostageIsDead = true;
-            }
 
-            if (!objects[i].isDead()) {
-                return hostageIsDead;
-            }
         }
-            return hostageIsDead;
+            return true;
     }
 
     private void shotOnTarget(){
@@ -189,7 +179,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         int objectOriginY;
 
         for (int i = 0; i < objects.length ; i++) {
-            if(objects[i].isDead()){
+            if(objects[i].isDead() && !objects[i].isVisible()){
                 continue;
             }
             objectOriginX = objects[i].getCurrentPosition().getxPoint();
@@ -233,7 +223,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
         this.sightX = (int) mouseEvent.getX();
         this.sightY = (int) mouseEvent.getY();
 
-        System.out.println("X: " +(int) mouseEvent.getX() + " Y: "+(int) mouseEvent.getX());
+        //System.out.println("X: " +(int) mouseEvent.getX() + " Y: "+(int) mouseEvent.getX());
 
       /*  if((mouseEvent.getX() < sightCross.getWidth()/2 || mouseEvent.getX() > gameWidth - sightCross.getWidth()/2 ) && (mouseEvent.getY() < (sightCross.getHeight()/2) + 23 || mouseEvent.getY() > gameHeight)){ //canvas bar has 23 pixels
             sightCross.translate(0,0);
