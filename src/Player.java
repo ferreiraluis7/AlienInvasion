@@ -1,8 +1,7 @@
 public class Player extends SoundPlayer{
 
-    private int score = 0;
-    private int shotsFired = 0;
-    private int shotsOnTarget = 0;
+    private double shotsFired = 0;
+    private double shotsOnTarget = 0;
     private int shotOnHostages = 0;
 
     void shoot() {
@@ -22,6 +21,10 @@ public class Player extends SoundPlayer{
         shotOnHostages = 0;
     }
 
+    double getAccuracy(){
+        return ((shotsOnTarget/shotsFired) * 100);
+    }
+
     void shotOnTarget() {
         shotsOnTarget++;
     }
@@ -30,11 +33,11 @@ public class Player extends SoundPlayer{
         shotOnHostages++;
     }
 
-    int getShotsOnTarget() {
+    double getShotsOnTarget() {
         return shotsOnTarget;
     }
 
-    int getShotsFired() {
+    double getShotsFired() {
         return shotsFired;
     }
 

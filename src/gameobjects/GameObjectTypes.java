@@ -4,7 +4,7 @@ public enum GameObjectTypes {
     BASICALIEN("resources/images/aliens/basicalien/"),
     WARRIORALIEN("resources/images/aliens/warrioralien/"),
     CHIEFALIEN("resources/images/aliens/chiefalien/"),
-    HOSTAGE1("resources/images/hostages/sérgio/"),
+    HOSTAGE1("resources/images/hostages/sergio/"),
     HOSTAGE2("resources/images/hostages/audrey/"),
     HOSTAGE3("resources/images/hostages/faustino/");
 
