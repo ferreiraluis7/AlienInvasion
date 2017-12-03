@@ -44,7 +44,7 @@ public class Game extends SoundPlayer implements MouseHandler, KeyboardHandler {
     }
 
     public void start() throws InterruptedException {
-        generateIntroStage();
+            generateIntroStage();
 
         while (true){
             generateMenuStage();

@@ -3,13 +3,18 @@ package graphics;
 public enum Positions {
 
     //Front
-    SPAWN1(56,260),
-    SPAWN2(226,260),
-    SPAWN3(424, 262),
-    SPAWN4(651, 262);
+    SPAWN1(56, 270),
+    SPAWN2(226, 270),
+    SPAWN3(424, 272),
+    SPAWN4(651, 272),
 
     //Middle
-
+    SPAWN5(63, 218),
+    SPAWN6(184, 219),
+    SPAWN7(310, 220),
+    SPAWN8(440, 220),
+    SPAWN9(568, 220),
+    SPAWN10(685, 218);
 
 
     private int xPoint;
