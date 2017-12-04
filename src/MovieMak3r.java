@@ -9,7 +9,7 @@ public class MovieMak3r extends SoundPlayer {
 
     void play(String resourcesPath, String imagePrefix, int picQuantity, int imageNumberSuffix, int mileseconds) throws InterruptedException {
         this.picture = new Picture(0, 0, resourcesPath + imagePrefix + imageNumberSuffix + ".png");
-       this. picture2 = new Picture(0, 0, resourcesPath + imagePrefix + imageNumberSuffix+1 + ".png");
+        this. picture2 = new Picture(0, 0, resourcesPath + imagePrefix + (imageNumberSuffix + 1) + ".png");
         this.picQuantity = picQuantity;
 
         for (i = imageNumberSuffix; i < picQuantity; i++) {
@@ -37,43 +37,40 @@ public class MovieMak3r extends SoundPlayer {
                     TimeUnit.MILLISECONDS.sleep(mileseconds);
                 }
             }
+            
+            if (i == 11) {
+                spaceship.play();
+            }
+            if (i == 26) {
+                spaceship.stop();
+            }
+            if (i == 27) {
+                beamdown.play();
+            }
+            if (i == 54) {
+                beamdown.stop();
+            }
 
-        }
-        if (i == 11 ) {
-            spaceship.play();
-        }
-        if (i == 26) {
-            spaceship.stop();
-        }
-        if (i == 27) {
-            beamdown.play();
-        }
-        if (i == 54) {
-            beamdown.stop();
-        }
-
-        if (i == 71) {
-            noise.play();
-        }
-        if (i == 96) {
-            noise.stop();
-        }
-        if (i == 97) {
-            catarina.play(true);
-        }
-        if (i == 157) {
-            catarina.stop();
-        }
-        if (i == 164) {
-            footsteps.play(true, 2);
-        }
-        if (i == 203) {
-            footsteps.stop();
+            if (i == 71) {
+                noise.play();
+            }
+            if (i == 96) {
+                noise.stop();
+            }
+            if (i == 97) {
+                catarina.play(true);
+            }
+            if (i == 157) {
+                catarina.stop();
+            }
+            if (i == 164) {
+                footsteps.play(true, 2);
+            }
+            if (i == 203) {
+                footsteps.stop();
+            }
         }
     }
-
-
-
 
     public void stop() {
 
